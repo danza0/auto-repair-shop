@@ -19,14 +19,14 @@ export default function EstimatorWizard() {
   const [step, setStep] = useState(1);
   const [vehicleType, setVehicleType] = useState<VehicleType | null>(null);
   const [vehicleDetails, setVehicleDetails] = useState<Partial<VehicleDetails>>({});
-  const [serviceSlug, setServiceSlug] = useState<ServiceSlug | null>(null);
+  const [serviceSlugs, setServiceSlugs] = useState<ServiceSlug[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [result, setResult] = useState<EstimateResult | null>(null);
 
   const canProceed = () => {
     if (step === 1) return vehicleType !== null;
     if (step === 2) return !!vehicleDetails.make && !!vehicleDetails.model && !!vehicleDetails.year;
-    if (step === 3) return serviceSlug !== null;
+    if (step === 3) return serviceSlugs.length > 0;
     return true;
   };
 
@@ -39,7 +39,7 @@ export default function EstimatorWizard() {
         year: vehicleDetails.year ?? "",
         mileage: vehicleDetails.mileage,
       };
-      const estimate = calculateEstimate(details, serviceSlug!, selectedAddons);
+      const estimate = calculateEstimate(details, serviceSlugs, selectedAddons);
       setResult(estimate);
       setStep(5);
     } else {
@@ -49,7 +49,11 @@ export default function EstimatorWizard() {
 
   const handleReset = () => {
     setStep(1); setVehicleType(null); setVehicleDetails({});
-    setServiceSlug(null); setSelectedAddons([]); setResult(null);
+    setServiceSlugs([]); setSelectedAddons([]); setResult(null);
+  };
+
+  const toggleService = (slug: ServiceSlug) => {
+    setServiceSlugs((prev) => prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]);
   };
 
   const toggleAddon = (id: string) => {
@@ -65,8 +69,8 @@ export default function EstimatorWizard() {
             <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.2 }}>
               {step === 1 && <StepVehicleType selected={vehicleType} onSelect={setVehicleType} />}
               {step === 2 && <StepVehicleDetails details={vehicleDetails} onChange={setVehicleDetails} />}
-              {step === 3 && <StepService selected={serviceSlug} onSelect={setServiceSlug} />}
-              {step === 4 && serviceSlug && <StepAddons serviceSlug={serviceSlug} selected={selectedAddons} onToggle={toggleAddon} />}
+              {step === 3 && <StepService selected={serviceSlugs} onToggle={toggleService} />}
+              {step === 4 && serviceSlugs.length > 0 && <StepAddons serviceSlugs={serviceSlugs} selected={selectedAddons} onToggle={toggleAddon} />}
               {step === 5 && result && <StepResult result={result} onReset={handleReset} />}
             </motion.div>
           </AnimatePresence>

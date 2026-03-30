@@ -2,10 +2,10 @@ import { addons, ServiceSlug } from "@/config/pricing";
 import { cn, formatRange } from "@/lib/utils";
 import { Check } from "lucide-react";
 
-interface Props { serviceSlug: ServiceSlug; selected: string[]; onToggle: (id: string) => void; }
+interface Props { serviceSlugs: ServiceSlug[]; selected: string[]; onToggle: (id: string) => void; }
 
-export default function StepAddons({ serviceSlug, selected, onToggle }: Props) {
-  const applicable = addons.filter((a) => a.applicableTo === "all" || (a.applicableTo as ServiceSlug[]).includes(serviceSlug));
+export default function StepAddons({ serviceSlugs, selected, onToggle }: Props) {
+  const applicable = addons.filter((a) => a.applicableTo === "all" || serviceSlugs.some((slug) => (a.applicableTo as ServiceSlug[]).includes(slug)));
   return (
     <div>
       <h2 className="text-2xl font-bold text-gray-900 mb-2">Add optional upgrades</h2>
