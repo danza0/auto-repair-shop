@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Settings } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -29,26 +29,22 @@ export default function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "glass-strong shadow-2xl shadow-black/30"
+          ? "glass border-b border-white/5 shadow-2xl shadow-black/30"
           : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <motion.div
-              className="w-10 h-10 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center shadow-lg shadow-accent-500/20"
-              whileHover={{ rotate: 180, scale: 1.05 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-            >
-              <Settings className="w-5 h-5 text-white" />
-            </motion.div>
+            <div className="w-9 h-9 rounded-full bg-accent-500 flex items-center justify-center shadow-lg shadow-accent-500/20 group-hover:shadow-accent-500/40 transition-shadow duration-300">
+              <span className="text-white font-bold text-xs font-display">SC</span>
+            </div>
             <div className="flex flex-col leading-none">
               <span className="font-bold text-white text-sm font-display tracking-wide">
                 SmartCare
               </span>
-              <span className="text-[10px] text-slate-400 tracking-[0.2em] uppercase">
+              <span className="text-[10px] text-slate-500 tracking-[0.2em] uppercase">
                 Auto Repair
               </span>
             </div>
@@ -60,26 +56,25 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-medium text-slate-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/5 group"
+                className="relative text-[13px] font-medium text-slate-400 hover:text-white transition-colors px-4 py-2 rounded-full hover:bg-white/5"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-500 group-hover:w-2/3 transition-all duration-300 rounded-full" />
               </Link>
             ))}
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-5">
             <a
               href="tel:+12532143774"
-              className="flex items-center gap-2 text-sm font-medium text-accent-400 hover:text-accent-300 transition-colors"
+              className="flex items-center gap-2 text-[13px] font-medium text-slate-400 hover:text-white transition-colors"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-3.5 h-3.5" />
               (253) 214-3774
             </a>
             <Link
               href="/#booking"
-              className="inline-flex items-center justify-center font-semibold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-sm px-5 py-2.5 transition-all duration-200 shadow-lg shadow-accent-500/20 hover:shadow-accent-500/30 hover:scale-[1.03]"
+              className="inline-flex items-center justify-center font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-[13px] px-5 py-2.5 transition-all duration-300 shadow-[0_0_20px_rgba(249,115,22,0.2)] hover:shadow-[0_0_30px_rgba(249,115,22,0.35)] hover:scale-[1.03]"
             >
               Book Now
             </Link>
@@ -87,7 +82,7 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 rounded-lg text-slate-300 hover:bg-white/5 transition-colors"
+            className="lg:hidden p-2 rounded-full text-slate-400 hover:bg-white/5 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -127,9 +122,9 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden glass-strong border-t border-white/5"
+            className="lg:hidden overflow-hidden glass border-t border-white/5"
           >
-            <div className="px-4 py-4 space-y-1">
+            <div className="px-5 py-5 space-y-1">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -139,7 +134,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-300 hover:bg-white/5 hover:text-white transition-colors"
+                    className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.label}
@@ -150,18 +145,18 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25, duration: 0.2 }}
-                className="pt-3 border-t border-white/5 space-y-2"
+                className="pt-4 border-t border-white/5 space-y-3"
               >
                 <a
                   href="tel:+12532143774"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-accent-400 border border-accent-500/30 hover:bg-accent-500/10 transition-colors"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-medium text-accent-400 border border-accent-500/30 hover:bg-accent-500/10 transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   (253) 214-3774
                 </a>
                 <Link
                   href="/#booking"
-                  className="flex w-full items-center justify-center font-semibold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-base px-6 py-3 transition-all duration-200"
+                  className="flex w-full items-center justify-center font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-base px-6 py-3 transition-all duration-300"
                   onClick={() => setIsOpen(false)}
                 >
                   Book Appointment

@@ -1,63 +1,25 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Cpu, MessageSquare, Globe, Clock, DollarSign, Zap } from "lucide-react";
-import { Badge } from "@/components/ui/Badge";
-import { cn } from "@/lib/utils";
 
 const reasons = [
-  {
-    icon: Cpu,
-    title: "Expert Diagnostics",
-    description:
-      "Professional-grade diagnostic equipment to find the root cause fast — no guesswork, no unnecessary repairs.",
-  },
-  {
-    icon: Zap,
-    title: "EV & Hybrid Specialists",
-    description:
-      "From BEV battery diagnostics to hybrid drive systems — we have the training and tools for modern vehicles.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Clear Communication",
-    description:
-      "We explain what's wrong, why it matters, and what it will cost — before any work begins. No surprises.",
-  },
-  {
-    icon: Globe,
-    title: "Multilingual Service",
-    description:
-      "We serve our community in English, Spanish, and Russian — so you always understand your vehicle's service.",
-  },
-  {
-    icon: Clock,
-    title: "Efficient Turnaround",
-    description:
-      "We respect your time. Most services are completed promptly and we keep you updated throughout.",
-  },
-  {
-    icon: DollarSign,
-    title: "Honest, Transparent Pricing",
-    description:
-      "Written estimates before work starts. Fair rates with no hidden fees — just straightforward, honest service.",
-  },
+  { icon: Cpu, title: "Expert Diagnostics", description: "Professional-grade diagnostic equipment to find the root cause fast — no guesswork." },
+  { icon: Zap, title: "EV & Hybrid Specialists", description: "Battery diagnostics to hybrid drive systems — trained and tooled for modern vehicles." },
+  { icon: MessageSquare, title: "Clear Communication", description: "We explain what's wrong, why it matters, and what it costs — before any work begins." },
+  { icon: Globe, title: "Multilingual Service", description: "English, Spanish, and Russian — so you always understand your vehicle's service." },
+  { icon: Clock, title: "Efficient Turnaround", description: "Most services completed promptly. We keep you updated throughout the process." },
+  { icon: DollarSign, title: "Honest Pricing", description: "Written estimates before work starts. Fair rates with no hidden fees." },
 ];
 
 const stats = [
-  { value: 3, suffix: "", label: "Languages Spoken" },
-  { value: 6, suffix: "+", label: "Service Specialties" },
-  { value: 100, suffix: "%", label: "Transparent Pricing" },
+  { value: 3, suffix: "", label: "Languages" },
+  { value: 6, suffix: "+", label: "Specialties" },
+  { value: 100, suffix: "%", label: "Transparent" },
 ];
 
-function AnimatedCounter({
-  target,
-  suffix,
-}: {
-  target: number;
-  suffix: string;
-}) {
+function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
@@ -67,163 +29,107 @@ function AnimatedCounter({
     const duration = 1400;
     const startTime = performance.now();
     let rafId: number;
-
     const tick = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic for smoother finish
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
-      if (progress < 1) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        setCount(target);
-      }
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+      else setCount(target);
     };
-
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
   }, [inView, target]);
 
   return (
     <span ref={ref} className="tabular-nums">
-      {count}
-      {suffix}
+      {count}{suffix}
     </span>
   );
 }
 
 export default function WhyChooseUs() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+
   return (
-    <section className="section-padding bg-navy-900 relative overflow-hidden">
-      {/* Gradient mesh overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-60"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 20% 10%, rgba(249,115,22,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 90%, rgba(249,115,22,0.03) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 50% 50%, rgba(30,58,95,0.15) 0%, transparent 70%)",
-        }}
-      />
+    <section ref={sectionRef} className="relative py-28 md:py-40 overflow-hidden">
+      {/* Full-width cinematic bg */}
+      <motion.div
+        style={{ y: bgY }}
+        className="absolute inset-0 bg-navy-900"
+      >
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(ellipse 60% 50% at 70% 20%, rgba(249,115,22,0.05) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 20% 80%, rgba(249,115,22,0.03) 0%, transparent 60%)"
+        }} />
+      </motion.div>
 
-      {/* Subtle glow orbs */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-accent-500/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-accent-500/4 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="container-max relative">
-        {/* Section header */}
+      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
+        {/* Full-width header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7 }}
+          className="mb-20"
         >
-          <Badge variant="accent" className="mb-4">
-            Why SmartCare
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
-            The SmartCare Difference
-          </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            We don&apos;t just fix cars — we build trust, communicate clearly,
-            and deliver work you can rely on.
-          </p>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-8 bg-accent-500/50" />
+            <span className="text-accent-500 text-xs font-mono tracking-widest uppercase">Why SmartCare</span>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.05]">
+              The SmartCare<br />
+              <span className="gradient-text">Difference.</span>
+            </h2>
+            <p className="text-lg text-slate-400 max-w-md lg:ml-auto">
+              We don&apos;t just fix cars — we build trust, communicate clearly, and deliver work you can rely on.
+            </p>
+          </div>
         </motion.div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-3 gap-5 mb-16 max-w-3xl mx-auto">
+        <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-20 max-w-2xl">
           {stats.map(({ value, suffix, label }, i) => (
             <motion.div
               key={label}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.5 }}
-              className={cn(
-                "relative text-center p-6 rounded-2xl overflow-hidden",
-                "bg-gradient-to-b from-navy-800 to-navy-900",
-                "border border-navy-700/50"
-              )}
-              style={{
-                boxShadow:
-                  "inset 0 0 0 1px rgba(249,115,22,0.15), 0 4px 24px rgba(0,0,0,0.2)",
-              }}
+              transition={{ delay: i * 0.15, duration: 0.5 }}
             >
-              {/* Gradient border highlight */}
-              <div
-                className="absolute inset-0 rounded-2xl pointer-events-none"
-                style={{
-                  boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.15)",
-                }}
-              />
-
-              {/* Pulsing orange bottom line */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-[2px]"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent 10%, rgba(249,115,22,0.7) 50%, transparent 90%)",
-                  animation: "pulse 2.5s ease-in-out infinite",
-                }}
-              />
-
-              {/* Large number with gradient text */}
-              <div className="text-4xl lg:text-5xl font-black font-display mb-2 gradient-text">
+              <div className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold gradient-text mb-2">
                 <AnimatedCounter target={value} suffix={suffix} />
               </div>
-
-              <div className="text-slate-400 text-sm font-medium tracking-wide">
-                {label}
-              </div>
+              <div className="text-slate-500 text-sm font-medium">{label}</div>
             </motion.div>
           ))}
         </div>
 
-        {/* 3x2 reasons grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Reasons grid — staggered entrance */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {reasons.map(({ icon: Icon, title, description }, i) => (
             <motion.div
               key={title}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
-              className={cn(
-                "group relative flex gap-4 p-6 rounded-2xl overflow-hidden",
-                "bg-navy-800/50 border border-navy-700/60",
-                "hover:border-accent-500/30 hover:bg-navy-800/80",
-                "hover:-translate-y-1 transition-all duration-300"
-              )}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="group relative p-6 rounded-2xl border border-white/5 bg-navy-950/50 hover:border-accent-500/20 transition-all duration-500"
             >
-              {/* Orange left border that slides in on hover */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-gradient-to-b from-accent-400 via-accent-500 to-accent-400 group-hover:h-3/4 transition-all duration-400 ease-out rounded-r-full" />
-
-              {/* Icon in accent container */}
-              <div
-                className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
-                  "bg-accent-500/10 border border-accent-500/20",
-                  "group-hover:bg-accent-500/20 group-hover:border-accent-500/40",
-                  "group-hover:shadow-[0_0_16px_rgba(249,115,22,0.2)]",
-                  "transition-all duration-300"
-                )}
-              >
+              <div className="w-10 h-10 rounded-xl bg-accent-500/10 border border-accent-500/15 flex items-center justify-center mb-4 group-hover:bg-accent-500/15 transition-all duration-300">
                 <Icon className="w-5 h-5 text-accent-500" />
               </div>
-
-              {/* Text content */}
-              <div>
-                <h3 className="font-bold text-white mb-1.5 text-[15px] group-hover:text-accent-50 transition-colors duration-300">
-                  {title}
-                </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  {description}
-                </p>
-              </div>
+              <h3 className="font-display font-bold text-white mb-2 group-hover:text-accent-50 transition-colors">{title}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Bottom gradient line */}
+      <div className="absolute bottom-0 left-0 right-0 line-accent" />
     </section>
   );
 }

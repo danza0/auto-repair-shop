@@ -1,147 +1,102 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Star } from "lucide-react";
-import { Badge } from "@/components/ui/Badge";
-import { cn } from "@/lib/utils";
 
 const testimonials = [
-  {
-    name: "Carlos M.",
-    vehicle: "2021 Toyota Camry Hybrid",
-    rating: 5,
-    text: "They diagnosed my hybrid system issue when two other shops couldn't figure it out. Professional, fast, and they explained everything clearly in Spanish.",
-  },
-  {
-    name: "James T.",
-    vehicle: "2020 Ford F-250 Diesel",
-    rating: 5,
-    text: "Best diesel shop I've found in the area. They know their stuff — diagnosed a tricky injector issue and had me back on the road same week. Fair price too.",
-  },
-  {
-    name: "Natasha V.",
-    vehicle: "2019 Chevrolet Bolt EV",
-    rating: 5,
-    text: "Finally a shop that actually knows EVs. They handled a battery warning code and a programming issue for my Bolt without any issues. Very happy with SmartCare.",
-  },
-  {
-    name: "David K.",
-    vehicle: "2018 BMW 3 Series",
-    rating: 5,
-    text: "Needed ECU programming after a repair — they got it done right the first time. No dealership markup, way more personal service. Highly recommend.",
-  },
-  {
-    name: "Rachel P.",
-    vehicle: "2022 Kia Sorento",
-    rating: 5,
-    text: "Great experience from start to finish. Called in the morning, got an appointment the next day, and they kept me updated the whole time. Clean shop, honest team.",
-  },
-  {
-    name: "Mike H.",
-    vehicle: "2017 Ram 2500 Diesel",
-    rating: 5,
-    text: "Took my Ram 2500 in for a DPF issue. They diagnosed it quickly and gave me a fair written estimate before touching anything. Will be my go-to shop going forward.",
-  },
+  { name: "Carlos M.", vehicle: "2021 Toyota Camry Hybrid", rating: 5, text: "They diagnosed my hybrid system issue when two other shops couldn't figure it out. Professional, fast, and they explained everything clearly in Spanish." },
+  { name: "James T.", vehicle: "2020 Ford F-250 Diesel", rating: 5, text: "Best diesel shop I've found in the area. They know their stuff — diagnosed a tricky injector issue and had me back on the road same week. Fair price too." },
+  { name: "Natasha V.", vehicle: "2019 Chevrolet Bolt EV", rating: 5, text: "Finally a shop that actually knows EVs. They handled a battery warning code and a programming issue for my Bolt without any issues. Very happy with SmartCare." },
+  { name: "David K.", vehicle: "2018 BMW 3 Series", rating: 5, text: "Needed ECU programming after a repair — they got it done right the first time. No dealership markup, way more personal service. Highly recommend." },
+  { name: "Rachel P.", vehicle: "2022 Kia Sorento", rating: 5, text: "Great experience from start to finish. Called in the morning, got an appointment the next day, and they kept me updated the whole time. Clean shop, honest team." },
+  { name: "Mike H.", vehicle: "2017 Ram 2500 Diesel", rating: 5, text: "Took my Ram 2500 in for a DPF issue. They diagnosed it quickly and gave me a fair written estimate before touching anything. Will be my go-to shop going forward." },
 ];
 
+function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
+  return (
+    <div className="flex-shrink-0 w-[340px] sm:w-[400px] p-6 rounded-2xl border border-white/5 bg-navy-900/50">
+      {/* Stars */}
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: t.rating }).map((_, i) => (
+          <Star key={i} className="w-3.5 h-3.5 fill-accent-400 text-accent-400" />
+        ))}
+      </div>
+      {/* Quote */}
+      <p className="text-slate-300 text-sm leading-relaxed mb-6">&ldquo;{t.text}&rdquo;</p>
+      {/* Author */}
+      <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+        <div className="w-8 h-8 rounded-full bg-accent-500/10 flex items-center justify-center">
+          <span className="text-accent-400 text-xs font-display font-bold">{t.name[0]}</span>
+        </div>
+        <div>
+          <p className="text-white text-sm font-medium">{t.name}</p>
+          <p className="text-slate-600 text-xs">{t.vehicle}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Testimonials() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  // Double the testimonials for seamless infinite scroll
+  const row1 = [...testimonials, ...testimonials];
+  const row2 = [...testimonials.slice(3), ...testimonials.slice(0, 3), ...testimonials.slice(3), ...testimonials.slice(0, 3)];
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative py-24 sm:py-32 bg-navy-900 overflow-hidden"
-    >
-      {/* Dots overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+    <section className="relative py-28 md:py-36 bg-navy-900 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 mb-16">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
         >
-          <Badge className="mb-4">Customer Reviews</Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-            What Our Customers Say
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-8 bg-accent-500/50" />
+            <span className="text-accent-500 text-xs font-mono tracking-widest uppercase">Reviews</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white">
+            What Our Customers<br />
+            <span className="gradient-text">Say.</span>
           </h2>
         </motion.div>
+      </div>
 
-        {/* 3x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              className={cn(
-                "group relative rounded-2xl p-6 sm:p-8",
-                "bg-navy-800/60 border border-navy-700/50",
-                "transition-all duration-500",
-                "hover:border-accent-500/40 hover:shadow-[0_0_30px_-5px_rgba(251,146,60,0.15)]"
-              )}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-            >
-              {/* Hover border glow overlay */}
-              <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent-500/0 via-transparent to-accent-500/0 group-hover:from-accent-500/10 group-hover:to-accent-500/5 transition-all duration-500 pointer-events-none" />
-
-              <div className="relative">
-                {/* Animated quotation mark */}
-                <motion.span
-                  className="block text-5xl leading-none font-serif text-accent-500/25 mb-2 select-none"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{
-                    duration: 0.4,
-                    delay: 0.15 + i * 0.1,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  &ldquo;
-                </motion.span>
-
-                {/* Staggered star rating */}
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, si) => (
-                    <motion.div
-                      key={si}
-                      initial={{ opacity: 0, scale: 0, rotate: -30 }}
-                      animate={
-                        isInView
-                          ? { opacity: 1, scale: 1, rotate: 0 }
-                          : {}
-                      }
-                      transition={{
-                        duration: 0.3,
-                        delay: 0.25 + i * 0.1 + si * 0.07,
-                        type: "spring",
-                        stiffness: 300,
-                      }}
-                    >
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Quote text */}
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-                  &ldquo;{t.text}&rdquo;
-                </p>
-
-                {/* Name + vehicle */}
-                <div className="border-t border-navy-700/50 pt-4">
-                  <p className="font-semibold text-white text-sm">{t.name}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{t.vehicle}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+      {/* Marquee row 1 — left */}
+      <div className="relative mb-5">
+        <div className="marquee-track animate-marquee">
+          <div className="flex gap-5 pr-5">
+            {row1.map((t, i) => (
+              <TestimonialCard key={`r1-${i}`} t={t} />
+            ))}
+          </div>
+          <div className="flex gap-5 pr-5">
+            {row1.map((t, i) => (
+              <TestimonialCard key={`r1d-${i}`} t={t} />
+            ))}
+          </div>
         </div>
+        {/* Edge fades */}
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-navy-900 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-navy-900 to-transparent pointer-events-none z-10" />
+      </div>
+
+      {/* Marquee row 2 — right */}
+      <div className="relative">
+        <div className="marquee-track animate-marquee-rev">
+          <div className="flex gap-5 pr-5">
+            {row2.map((t, i) => (
+              <TestimonialCard key={`r2-${i}`} t={t} />
+            ))}
+          </div>
+          <div className="flex gap-5 pr-5">
+            {row2.map((t, i) => (
+              <TestimonialCard key={`r2d-${i}`} t={t} />
+            ))}
+          </div>
+        </div>
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-navy-900 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-navy-900 to-transparent pointer-events-none z-10" />
       </div>
     </section>
   );
