@@ -78,7 +78,7 @@ export default function EstimateCTA() {
           transition={{ duration: 0.55, delay: 0.2 }}
           className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10"
         >
-          Use our 60-second estimator wizard — select your vehicle type, enter details, pick services, and get an instant price range. No surprises. Book directly via Calendly when you&apos;re ready.
+          Use our 60-second estimate wizard — select your vehicle type, enter details, pick services, and get an instant price range. No surprises. Book directly via Calendly when you&apos;re ready.
         </motion.p>
 
         {/* Step indicators */}
