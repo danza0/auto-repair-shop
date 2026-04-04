@@ -76,11 +76,19 @@ export default function EstimatorWizard() {
           </AnimatePresence>
 
           {step < 5 && (
-            <div className="flex justify-between mt-8 pt-6 border-t border-gray-100">
-              <button onClick={() => setStep(step - 1)} disabled={step === 1} className="inline-flex items-center gap-2 font-semibold rounded-xl border-2 border-gray-200 text-gray-700 hover:bg-gray-50 text-base px-6 py-3 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed">
+            <div className="flex justify-between mt-8 pt-6 border-t border-navy-700">
+              <button
+                onClick={() => setStep(step - 1)}
+                disabled={step === 1}
+                className="inline-flex items-center gap-2 font-semibold rounded-xl border-2 border-navy-600 text-slate-300 hover:bg-navy-700 hover:text-white text-base px-6 py-3 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
                 <ChevronLeft className="w-4 h-4" /> Back
               </button>
-              <button onClick={handleNext} disabled={!canProceed()} className="inline-flex items-center gap-2 font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 text-base px-6 py-3 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed">
+              <button
+                onClick={handleNext}
+                disabled={!canProceed()}
+                className="inline-flex items-center gap-2 font-bold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-base px-6 py-3 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg hover:shadow-accent-500/30"
+              >
                 {step === 4 ? "Calculate Estimate" : "Continue"} <ChevronRight className="w-4 h-4" />
               </button>
             </div>

@@ -8,8 +8,7 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/estimate", label: "Get Estimate" },
-  { href: "/booking", label: "Book Appointment" },
+  { href: "/#booking", label: "Book Appointment" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -24,53 +23,95 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100" : "bg-transparent")}>
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      scrolled
+        ? "bg-navy-900/95 backdrop-blur-md border-b border-navy-700 shadow-lg shadow-black/20"
+        : "bg-transparent"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">AP</span>
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 bg-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-accent-400 transition-colors">
+              <span className="text-white font-bold text-sm font-display">SC</span>
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-gray-900 text-sm leading-tight">AutoPrecision</span>
-              <span className="text-xs text-gray-500 leading-tight">Auto Repair & Service</span>
+            <div className="flex flex-col leading-none">
+              <span className="font-bold text-white text-sm font-display tracking-wide">SmartCare</span>
+              <span className="text-xs text-slate-400 tracking-widest uppercase">Auto Repair</span>
             </div>
           </Link>
 
+          {/* Desktop nav links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-slate-300 hover:text-white transition-colors relative group"
+              >
                 {link.label}
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-500 group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
           </div>
 
+          {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+15555551234" className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+            <a
+              href="tel:+12532143774"
+              className="flex items-center gap-2 text-sm font-medium text-accent-400 hover:text-accent-300 transition-colors"
+            >
               <Phone className="w-4 h-4" />
-              (555) 555-1234
+              (253) 214-3774
             </a>
-            <Link href="/booking" className="inline-flex items-center justify-center font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 text-sm px-4 py-2 transition-all duration-200 shadow-sm hover:shadow-md">
+            <Link
+              href="/#booking"
+              className="inline-flex items-center justify-center font-semibold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-sm px-5 py-2.5 transition-all duration-200 shadow-lg hover:shadow-accent-500/30 hover:scale-[1.02]"
+            >
               Book Now
             </Link>
           </div>
 
-          <button className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100" onClick={() => setIsOpen(!isOpen)}>
+          {/* Mobile menu toggle */}
+          <button
+            className="lg:hidden p-2 rounded-lg text-slate-300 hover:bg-navy-700 transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
+      {/* Mobile menu */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
-          <div className="px-4 py-4 space-y-2">
+        <div className="lg:hidden bg-navy-850 border-t border-navy-700 shadow-xl">
+          <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block px-4 py-3 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-700 hover:text-white transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2 border-t border-gray-100">
-              <Link href="/booking" className="flex w-full items-center justify-center font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 text-base px-6 py-3 transition-all duration-200">
+            <div className="pt-3 border-t border-navy-700 space-y-2">
+              <a
+                href="tel:+12532143774"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-accent-400 border border-accent-500/30 hover:bg-accent-500/10 transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                (253) 214-3774
+              </a>
+              <Link
+                href="/#booking"
+                className="flex w-full items-center justify-center font-semibold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-base px-6 py-3 transition-all duration-200"
+                onClick={() => setIsOpen(false)}
+              >
                 Book Appointment
               </Link>
             </div>

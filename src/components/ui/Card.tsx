@@ -5,7 +5,11 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> { hover?: boolean; }
 
 export function Card({ className, hover = false, children, ...props }: CardProps) {
   return (
-    <div className={cn("bg-white rounded-2xl border border-gray-100 shadow-sm", hover && "hover:shadow-lg hover:-translate-y-1 transition-all duration-300", className)} {...props}>
+    <div className={cn(
+      "bg-navy-800 rounded-2xl border border-navy-600",
+      hover && "card-hover cursor-pointer",
+      className
+    )} {...props}>
       {children}
     </div>
   );
