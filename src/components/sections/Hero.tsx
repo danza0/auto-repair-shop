@@ -116,8 +116,8 @@ export default function Hero() {
   const glowControls = useAnimation();
 
   useEffect(() => {
-    const seq = async () => {
-      await new Promise((r) => setTimeout(r, 1800));
+    let timeoutId: ReturnType<typeof setTimeout>;
+    timeoutId = setTimeout(() => {
       glowControls.start({
         textShadow: [
           "0 0 20px rgba(249,115,22,0.6)",
@@ -126,8 +126,8 @@ export default function Hero() {
         ],
         transition: { duration: 2, repeat: Infinity, repeatType: "reverse" as const },
       });
-    };
-    seq();
+    }, 1800);
+    return () => clearTimeout(timeoutId);
   }, [glowControls]);
 
   return (

@@ -51,20 +51,23 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
 
   useEffect(() => {
     if (!inView) return;
-    let start = 0;
     const duration = 1400;
-    const step = 16;
-    const increment = target / (duration / step);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
+    const startTime = performance.now();
+    let rafId: number;
+
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
       } else {
-        setCount(Math.floor(start));
+        setCount(target);
       }
-    }, step);
-    return () => clearInterval(timer);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, [inView, target]);
 
   return (

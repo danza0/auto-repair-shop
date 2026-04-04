@@ -118,7 +118,7 @@ export default function ContactSection() {
             {/* Google Maps embed */}
             <div className="rounded-2xl overflow-hidden border border-navy-600 shadow-xl">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.5!2d-122.4346!3d47.0887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDA1JzE5LjMiTiAxMjLCsDI2JzA0LjYiVw!5e0!3m2!1sen!2sus!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.5!2d-122.43460000000001!3d47.0887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5490fee65efbe849%3A0x4312a2f7a4a9a7ea!2s108+163rd+St+S%2C+Spanaway%2C+WA+98387!5e0!3m2!1sen!2sus!4v1"
                 width="100%"
                 height="250"
                 style={{ border: 0, borderRadius: "16px", display: "block" }}

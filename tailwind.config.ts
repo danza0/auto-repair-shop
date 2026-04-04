@@ -55,7 +55,6 @@ const config: Config = {
         drawLine:      { "to": { strokeDashoffset: "0" } },
         glowOrb:       { "0%, 100%": { opacity: "0.12", transform: "scale(1)" }, "50%": { opacity: "0.22", transform: "scale(1.08)" } },
         particleDrift: { "0%, 100%": { transform: "translateY(0px) translateX(0px)", opacity: "0.7" }, "50%": { transform: "translateY(-14px) translateX(6px)", opacity: "1" } },
-        topBorderSlide: { "from": { width: "0" }, "to": { width: "100%" } },
       },
     },
   },

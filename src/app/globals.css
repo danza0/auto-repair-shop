@@ -128,12 +128,3 @@ html { scroll-behavior: smooth; }
   66%  { transform: translateY(-8px) translateX(-4px); opacity: 0.8; }
   100% { transform: translateY(0px) translateX(0px); opacity: 0.7; }
 }
-
-@keyframes topBorderSlide {
-  from { width: 0; }
-  to   { width: 100%; }
-}
-
-.group:hover .top-border-slide {
-  animation: topBorderSlide 0.35s ease forwards;
-}
