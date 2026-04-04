@@ -2,7 +2,6 @@
 
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import {
   Calculator,
   ChevronRight,
@@ -14,10 +13,7 @@ import {
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
-
-const FloatingScene = dynamic(() => import("@/components/3d/FloatingScene"), {
-  ssr: false,
-});
+import FloatingScene from "@/components/3d/FloatingScene";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
