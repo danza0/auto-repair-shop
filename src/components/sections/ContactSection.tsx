@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Phone, Mail, MapPin, Clock, Globe, ArrowRight, Navigation } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 
@@ -44,25 +43,34 @@ export default function ContactSection() {
     <section id="contact" className="section-padding bg-navy-850 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-64 h-64 bg-accent-500/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-max relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <Badge variant="accent" className="mb-4">Get In Touch</Badge>
+          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
+            Ready to Get Started?
+          </h2>
+          <p className="text-slate-400 text-xl max-w-2xl mx-auto">
+            Call us, send a message, or stop by the shop. We&apos;re here Mon–Fri, 9 AM to 5 PM.
+          </p>
+        </motion.div>
 
-          {/* Left column – info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+          {/* Left column – info + map */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="accent" className="mb-4">Get In Touch</Badge>
-            <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
-              Ready to Get Started?
-            </h2>
-            <p className="text-slate-400 text-xl mb-8">
-              Call us, send a message, or stop by the shop. We&apos;re here Mon–Fri, 9 AM to 5 PM.
-            </p>
-
             <div className="space-y-4 mb-8">
               {contactDetails.map(({ icon: Icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
@@ -88,7 +96,7 @@ export default function ContactSection() {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
               <a
                 href="tel:+12532143774"
                 className="inline-flex items-center justify-center gap-2 font-bold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-base px-6 py-3 transition-all duration-200 shadow-lg hover:shadow-accent-500/30 hover:scale-[1.02]"
@@ -105,6 +113,20 @@ export default function ContactSection() {
                 <Navigation className="w-4 h-4" />
                 Get Directions
               </a>
+            </div>
+
+            {/* Google Maps embed */}
+            <div className="rounded-2xl overflow-hidden border border-navy-600 shadow-xl">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.5!2d-122.4346!3d47.0887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDA1JzE5LjMiTiAxMjLCsDI2JzA0LjYiVw!5e0!3m2!1sen!2sus!4v1"
+                width="100%"
+                height="250"
+                style={{ border: 0, borderRadius: "16px", display: "block" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="SmartCare Auto Repair location"
+              />
             </div>
           </motion.div>
 

@@ -32,7 +32,13 @@ export default function ServicesSection() {
       <div className="absolute inset-0 bg-dots opacity-50 pointer-events-none" />
 
       <div className="container-max relative">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <Badge variant="accent" className="mb-4">What We Do</Badge>
           <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
             Our Core Services
@@ -40,7 +46,7 @@ export default function ServicesSection() {
           <p className="text-xl text-slate-400 max-w-2xl mx-auto">
             From diagnostics to diesels — precision service for every vehicle, every system.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {featured.map((service, i) => {
@@ -48,14 +54,32 @@ export default function ServicesSection() {
             return (
               <motion.div
                 key={service.slug}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="group relative bg-navy-800 rounded-2xl border border-navy-600 p-6 cursor-pointer transition-all duration-300 hover:border-accent-500/50 hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1"
+                className="group relative bg-navy-800 rounded-2xl border border-navy-600 p-6 cursor-pointer overflow-hidden"
+                style={{ boxShadow: "none" }}
               >
+                {/* Animated orange top border on hover */}
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-accent-500 to-accent-400 group-hover:w-full transition-all duration-500 ease-out rounded-t-2xl" />
+
+                {/* Shimmer on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    background: "linear-gradient(90deg, transparent 0%, rgba(249,115,22,0.04) 50%, transparent 100%)",
+                    backgroundSize: "200% 100%",
+                    animation: "shimmer 1.8s ease infinite",
+                  }}
+                />
+
+                {/* Hover border glow */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.35), 0 8px 32px rgba(249,115,22,0.12)" }} />
+
                 {/* Icon */}
-                <div className="w-12 h-12 bg-accent-500/10 border border-accent-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-accent-500/20 transition-colors">
+                <div className="w-12 h-12 bg-accent-500/10 border border-accent-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-accent-500/25 group-hover:border-accent-500/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-500/30">
                   <Icon className="w-6 h-6 text-accent-500" />
                 </div>
 

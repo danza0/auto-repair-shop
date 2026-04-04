@@ -50,7 +50,13 @@ export default function Testimonials() {
       <div className="absolute top-0 left-1/4 w-96 h-48 bg-accent-500/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-max relative">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <Badge variant="accent" className="mb-4">Customer Reviews</Badge>
           <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
             What Our Customers Say
@@ -58,28 +64,53 @@ export default function Testimonials() {
           <p className="text-xl text-slate-400 max-w-2xl mx-auto">
             Real feedback from real customers in the Spanaway community.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
+              transition={{ delay: i * 0.09, duration: 0.5 }}
               viewport={{ once: true }}
-              className="bg-navy-800 rounded-2xl border border-navy-600 p-6 hover:border-accent-500/30 transition-colors"
+              className="group relative bg-navy-800 rounded-2xl border border-navy-600 p-6 hover:border-accent-500/30 transition-colors overflow-hidden"
             >
-              <div className="flex gap-0.5 mb-4">
+              {/* Large animated quotation mark */}
+              <motion.div
+                className="absolute top-3 left-4 text-7xl font-black text-accent-500/10 leading-none select-none pointer-events-none font-display"
+                initial={{ opacity: 0, scale: 0.6 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.09 + 0.25, duration: 0.5, type: "spring", stiffness: 120 }}
+              >
+                &ldquo;
+              </motion.div>
+
+              {/* Stars — staggered entrance */}
+              <div className="flex gap-0.5 mb-4 relative z-10">
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-accent-500 text-accent-500" />
+                  <motion.div
+                    key={j}
+                    initial={{ opacity: 0, scale: 0, rotate: -20 }}
+                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.09 + j * 0.07 + 0.3, duration: 0.3, type: "spring" }}
+                  >
+                    <Star className="w-4 h-4 fill-accent-500 text-accent-500" />
+                  </motion.div>
                 ))}
               </div>
-              <p className="text-slate-300 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
-              <div className="pt-4 border-t border-navy-700">
+
+              <p className="text-slate-300 text-sm leading-relaxed mb-5 relative z-10">&ldquo;{t.text}&rdquo;</p>
+
+              <div className="pt-4 border-t border-navy-700 relative z-10">
                 <p className="font-semibold text-white text-sm">{t.name}</p>
                 <p className="text-slate-500 text-xs">{t.vehicle}</p>
               </div>
+
+              {/* Gradient overlay at bottom for depth */}
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-navy-800/80 to-transparent pointer-events-none rounded-b-2xl" />
             </motion.div>
           ))}
         </div>

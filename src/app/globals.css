@@ -64,3 +64,76 @@ html { scroll-behavior: smooth; }
   background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* SVG path drawing animation */
+.animate-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2.5s ease forwards;
+}
+
+/* Shimmer gradient for card hover */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(249, 115, 22, 0.06) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease infinite;
+}
+
+/* Frosted glass effect */
+.glass {
+  background: rgba(10, 14, 26, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(249, 115, 22, 0.15);
+}
+
+/* Animated counter number reveal */
+.counter-animate {
+  display: inline-block;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Orange glow pulse for icons */
+.icon-glow-hover:hover {
+  box-shadow: 0 0 18px 4px rgba(249, 115, 22, 0.45);
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowOrb {
+  0%, 100% { opacity: 0.12; transform: scale(1); }
+  50%       { opacity: 0.22; transform: scale(1.08); }
+}
+
+@keyframes particleDrift {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0.7; }
+  33%  { transform: translateY(-14px) translateX(6px); opacity: 1; }
+  66%  { transform: translateY(-8px) translateX(-4px); opacity: 0.8; }
+  100% { transform: translateY(0px) translateX(0px); opacity: 0.7; }
+}
+
+@keyframes topBorderSlide {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+.group:hover .top-border-slide {
+  animation: topBorderSlide 0.35s ease forwards;
+}
