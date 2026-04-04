@@ -295,7 +295,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column — shop photo placeholder (desktop only) */}
+          {/* Right column — Diagnostic Dashboard Mockup (desktop only) */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -303,29 +303,126 @@ export default function Hero() {
             className="hidden lg:block"
           >
             <div className="relative">
-              {/* Main placeholder card */}
-              <div className="relative aspect-[4/3] bg-navy-800 rounded-3xl border-2 border-dashed border-navy-500 flex flex-col items-center justify-center gap-4 overflow-hidden">
-                {/* Animated scan line */}
-                <motion.div
-                  className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-500/50 to-transparent"
-                  animate={{ top: ["10%", "90%", "10%"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <div className="w-16 h-16 bg-accent-500/10 border border-accent-500/25 rounded-2xl flex items-center justify-center">
-                  <Camera className="w-8 h-8 text-accent-500/60" />
+              {/* Dashboard card */}
+              <div className="relative bg-navy-800 rounded-3xl border border-navy-600 p-5 overflow-hidden shadow-2xl shadow-black/40">
+                {/* Subtle inner glow */}
+                <div className="absolute inset-0 rounded-3xl pointer-events-none"
+                  style={{ boxShadow: "inset 0 0 60px rgba(249,115,22,0.04)" }} />
+
+                {/* Dashboard header bar */}
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-navy-700">
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      className="w-2 h-2 bg-green-400 rounded-full"
+                      animate={{ opacity: [1, 0.4, 1] }}
+                      transition={{ duration: 1.4, repeat: Infinity }}
+                    />
+                    <span className="text-green-400 text-[11px] font-mono font-semibold tracking-widest">SYSTEM ACTIVE</span>
+                  </div>
+                  <span className="text-slate-600 text-[10px] font-mono tracking-wider">SmartCare v2.4</span>
                 </div>
-                <div className="text-center px-6">
-                  <p className="text-slate-400 font-semibold text-base mb-1">Shop Photo Coming Soon</p>
-                  <p className="text-slate-600 text-xs">SmartCare Auto Repair · Spanaway, WA</p>
+
+                {/* Main photo placeholder with scan line */}
+                <div className="relative bg-navy-900 rounded-2xl border border-dashed border-navy-600 overflow-hidden mb-4"
+                  style={{ aspectRatio: "16/9" }}>
+                  {/* Animated scan line */}
+                  <motion.div
+                    className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-500/60 to-transparent z-10"
+                    animate={{ top: ["5%", "95%", "5%"] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  {/* Pulsing corner scan brackets */}
+                  <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-accent-500/50 rounded-tl" />
+                  <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-accent-500/50 rounded-tr" />
+                  <div className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-accent-500/50 rounded-bl" />
+                  <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-accent-500/50 rounded-br" />
+                  {/* Center content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                    <motion.div
+                      className="w-12 h-12 bg-accent-500/10 border border-accent-500/25 rounded-xl flex items-center justify-center"
+                      animate={{ borderColor: ["rgba(249,115,22,0.25)", "rgba(249,115,22,0.5)", "rgba(249,115,22,0.25)"] }}
+                      transition={{ duration: 2.5, repeat: Infinity }}
+                    >
+                      <Camera className="w-6 h-6 text-accent-500/60" />
+                    </motion.div>
+                    <div className="text-center">
+                      <p className="text-slate-400 text-xs font-semibold">Shop Photo Coming Soon</p>
+                      <p className="text-slate-600 text-[10px] font-mono mt-0.5">SCAN READY</p>
+                    </div>
+                  </div>
+                  {/* Floating data point dots */}
+                  {[
+                    { x: "20%", y: "25%" }, { x: "70%", y: "65%" }, { x: "55%", y: "30%" }
+                  ].map((pos, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1.5 h-1.5 bg-accent-500 rounded-full"
+                      style={{ left: pos.x, top: pos.y }}
+                      animate={{ scale: [1, 2, 1], opacity: [0.8, 0.3, 0.8] }}
+                      transition={{ duration: 2 + i * 0.5, delay: i * 0.4, repeat: Infinity }}
+                    />
+                  ))}
                 </div>
-                {/* Corner accents */}
-                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-accent-500/40 rounded-tl" />
-                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-accent-500/40 rounded-tr" />
-                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-accent-500/40 rounded-bl" />
-                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-accent-500/40 rounded-br" />
+
+                {/* System status grid */}
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  {[
+                    { label: "ENGINE", color: "green" },
+                    { label: "BATTERY", color: "green" },
+                    { label: "BRAKES", color: "green" },
+                    { label: "ELEC", color: "accent" },
+                  ].map(({ label, color }, i) => (
+                    <motion.div
+                      key={label}
+                      className="text-center p-2 bg-navy-900 rounded-xl border border-navy-700"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.2 + i * 0.1 }}
+                    >
+                      <motion.div
+                        className={`w-1.5 h-1.5 rounded-full mx-auto mb-1 ${color === "accent" ? "bg-accent-400" : "bg-green-400"}`}
+                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.6, 1] }}
+                        transition={{ duration: 2, delay: i * 0.35, repeat: Infinity }}
+                      />
+                      <span className="text-slate-500 text-[8px] font-mono uppercase block leading-tight">{label}</span>
+                      <span className={`text-[8px] font-mono ${color === "accent" ? "text-accent-400" : "text-green-400"}`}>PASS</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Vehicle health bar */}
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500 text-[10px] font-mono tracking-widest">VEHICLE HEALTH</span>
+                    <motion.span
+                      className="text-accent-400 text-[10px] font-mono font-bold"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.6 }}
+                    >87%</motion.span>
+                  </div>
+                  <div className="h-1.5 bg-navy-900 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ background: "linear-gradient(90deg, #ea580c 0%, #f97316 60%, #fb923c 100%)" }}
+                      initial={{ width: "0%" }}
+                      animate={{ width: "87%" }}
+                      transition={{ delay: 1.6, duration: 1.2, ease: "easeOut" }}
+                    />
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500 text-[10px] font-mono tracking-widest">DIAGNOSTICS</span>
+                    <motion.span
+                      className="text-green-400 text-[10px] font-mono font-semibold"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 2.4 }}
+                    >COMPLETE ✓</motion.span>
+                  </div>
+                </div>
               </div>
 
-              {/* Mini status readout cards */}
+              {/* Floating status chips */}
               <motion.div
                 className="absolute -bottom-5 -left-5 bg-navy-800 border border-navy-600 rounded-2xl px-4 py-3 shadow-xl"
                 initial={{ opacity: 0, y: 10 }}
