@@ -29,13 +29,27 @@ const trustItems = [
   { icon: Languages, label: "EN \u00b7 ES \u00b7 RU Service" },
 ];
 
-const particles = Array.from({ length: 18 }, (_, i) => ({
-  x: `${10 + Math.random() * 80}%`,
-  y: `${5 + Math.random() * 90}%`,
-  size: 2 + Math.random() * 4,
-  delay: Math.random() * 4,
-  duration: 3 + Math.random() * 4,
-}));
+// Deterministic particle positions to avoid hydration mismatch
+const particles = [
+  { x: "12%", y: "8%", size: 3, delay: 0, duration: 5 },
+  { x: "25%", y: "22%", size: 4, delay: 1.2, duration: 6 },
+  { x: "45%", y: "15%", size: 2, delay: 0.5, duration: 4 },
+  { x: "68%", y: "30%", size: 5, delay: 2, duration: 7 },
+  { x: "82%", y: "12%", size: 3, delay: 0.8, duration: 5.5 },
+  { x: "15%", y: "55%", size: 4, delay: 1.5, duration: 6.5 },
+  { x: "35%", y: "65%", size: 2, delay: 3, duration: 4.5 },
+  { x: "55%", y: "48%", size: 3, delay: 0.3, duration: 5 },
+  { x: "78%", y: "58%", size: 5, delay: 2.5, duration: 6 },
+  { x: "88%", y: "42%", size: 2, delay: 1, duration: 4 },
+  { x: "20%", y: "82%", size: 3, delay: 3.5, duration: 5.5 },
+  { x: "42%", y: "88%", size: 4, delay: 0.7, duration: 6 },
+  { x: "62%", y: "78%", size: 2, delay: 2.2, duration: 4.5 },
+  { x: "75%", y: "85%", size: 3, delay: 1.8, duration: 5 },
+  { x: "90%", y: "72%", size: 4, delay: 3.2, duration: 7 },
+  { x: "8%", y: "38%", size: 2, delay: 0.9, duration: 4 },
+  { x: "52%", y: "35%", size: 3, delay: 2.8, duration: 5.5 },
+  { x: "30%", y: "45%", size: 5, delay: 1.3, duration: 6 },
+];
 
 const headlineTop = ["Precision"];
 const headlineBottom = ["Auto", "Care."];
