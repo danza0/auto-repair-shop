@@ -22,7 +22,7 @@ const steps = [
     icon: Car,
     step: "03",
     title: "Bring Your Vehicle In",
-    description: "Drop your vehicle off at our shop at 108 163rd St S, Spanaway, WA. We&apos;re ready for you.",
+    description: "Drop your vehicle off at our shop at 108 163rd St S, Spanaway, WA. We're ready for you.",
   },
   {
     icon: Wrench,
