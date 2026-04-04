@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/Card";
 import ServiceSelector from "./ServiceSelector";
-import { bookingConfig, generalBookingUrl } from "@/config/booking";
+import { bookingConfig, generalBookingUrl, buildCalendlyUrl } from "@/config/booking";
 import { ArrowRight, ExternalLink, AlertCircle, CheckCircle, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,10 @@ function BookingFlowInner() {
   }, [searchParams]);
 
   const config = bookingConfig.find((b) => b.serviceSlug === selectedService);
-  const bookingUrl = config?.calendlyUrl ?? generalBookingUrl;
+  const baseUrl = config?.calendlyUrl ?? generalBookingUrl;
+  const bookingUrl = buildCalendlyUrl(baseUrl, {
+    services: config?.serviceName,
+  });
 
   return (
     <div className="max-w-2xl mx-auto">

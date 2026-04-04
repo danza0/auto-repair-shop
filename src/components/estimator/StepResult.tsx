@@ -1,13 +1,24 @@
-import { EstimateResult } from "@/lib/estimator";
+import { EstimateResult, VehicleDetails } from "@/lib/estimator";
 import { formatRange } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { AlertCircle, CheckCircle, ArrowRight } from "lucide-react";
-import { getBookingUrlForEstimator } from "@/config/booking";
+import { getBookingUrlForEstimator, buildCalendlyUrl } from "@/config/booking";
 
-interface Props { result: EstimateResult; onReset: () => void; }
+interface Props { result: EstimateResult; vehicleDetails?: VehicleDetails; onReset: () => void; }
 
-export default function StepResult({ result, onReset }: Props) {
-  const bookingUrl = getBookingUrlForEstimator(result.serviceSlugs[0]);
+export default function StepResult({ result, vehicleDetails, onReset }: Props) {
+  const baseBookingUrl = getBookingUrlForEstimator(result.serviceSlugs[0]);
+  const bookingUrl = buildCalendlyUrl(baseBookingUrl, {
+    vehicleYear: vehicleDetails?.year,
+    vehicleMake: vehicleDetails?.make,
+    vehicleModel: vehicleDetails?.model,
+    vehicleType: result.vehicleMultiplierLabel,
+    services: result.serviceName,
+    estimateRange: formatRange(result.totalMin, result.totalMax),
+    addons: result.selectedAddons.length > 0
+      ? result.selectedAddons.map((a) => a.label).join(", ")
+      : undefined,
+  });
   const isMultiple = result.serviceSlugs.length > 1;
   return (
     <div>

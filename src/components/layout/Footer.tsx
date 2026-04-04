@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, Clock, Globe } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 const serviceLinks = [
   { label: "Diagnostics", href: "/services" },
@@ -28,9 +29,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-9 h-9 rounded-full bg-accent-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs font-display">SC</span>
-              </div>
+              <Logo className="w-10 h-10" />
               <div className="leading-none">
                 <span className="font-bold text-white text-sm font-display tracking-wide block">SmartCare</span>
                 <span className="text-[10px] text-slate-600 tracking-[0.2em] uppercase">Auto Repair</span>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, ChevronRight } from "lucide-react";
+import { generalBookingUrl, buildCalendlyUrl, getBookingConfig } from "@/config/booking";
 
 const coreServices = [
   { value: "", label: "Select a Service" },
@@ -47,6 +48,24 @@ export default function BookingSection() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Build Calendly URL with all form details prefilled
+    const config = form.service ? getBookingConfig(form.service) : undefined;
+    const baseUrl = config?.calendlyUrl ?? generalBookingUrl;
+    const calendlyUrl = buildCalendlyUrl(baseUrl, {
+      name: form.name,
+      email: form.email || undefined,
+      services: config?.serviceName ?? form.service ?? undefined,
+      notes: [
+        form.phone ? `Phone: ${form.phone}` : "",
+        form.preferredDate ? `Preferred date: ${form.preferredDate}` : "",
+        form.preferredTime ? `Preferred time: ${form.preferredTime}` : "",
+        form.notes ? form.notes : "",
+      ].filter(Boolean).join(" | ") || undefined,
+    });
+
+    // Open Calendly in new tab with prefilled info
+    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   }
 

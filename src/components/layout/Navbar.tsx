@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import Logo from "@/components/ui/Logo";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -37,9 +38,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-full bg-accent-500 flex items-center justify-center shadow-lg shadow-accent-500/20 group-hover:shadow-accent-500/40 transition-shadow duration-300">
-              <span className="text-white font-bold text-xs font-display">SC</span>
-            </div>
+            <Logo className="w-10 h-10 drop-shadow-[0_0_8px_rgba(249,115,22,0.3)] group-hover:drop-shadow-[0_0_12px_rgba(249,115,22,0.5)] transition-all duration-300" />
             <div className="flex flex-col leading-none">
               <span className="font-bold text-white text-sm font-display tracking-wide">
                 SmartCare

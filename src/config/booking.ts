@@ -39,3 +39,49 @@ export function getBookingUrlForEstimator(serviceSlug: string): string {
   const config = getBookingConfig(normalized);
   return config?.calendlyUrl ?? generalBookingUrl;
 }
+
+/**
+ * Build a Calendly URL with prefilled guest info and vehicle/service details.
+ * Calendly supports: name, email, a1 (first custom question answer), a2, etc.
+ * We pack vehicle + service info into `a1` so the host sees it in the booking.
+ */
+export function buildCalendlyUrl(
+  baseUrl: string,
+  options?: {
+    name?: string;
+    email?: string;
+    vehicleYear?: string;
+    vehicleMake?: string;
+    vehicleModel?: string;
+    vehicleType?: string;
+    services?: string;
+    estimateRange?: string;
+    addons?: string;
+    notes?: string;
+  }
+): string {
+  if (!options) return baseUrl;
+
+  const params = new URLSearchParams();
+
+  if (options.name) params.set("name", options.name);
+  if (options.email) params.set("email", options.email);
+
+  // Build a detailed note for the host via Calendly's custom question field (a1)
+  const details: string[] = [];
+  if (options.vehicleYear || options.vehicleMake || options.vehicleModel) {
+    details.push(`Vehicle: ${[options.vehicleYear, options.vehicleMake, options.vehicleModel].filter(Boolean).join(" ")}`);
+  }
+  if (options.vehicleType) details.push(`Type: ${options.vehicleType}`);
+  if (options.services) details.push(`Services: ${options.services}`);
+  if (options.estimateRange) details.push(`Estimate: ${options.estimateRange}`);
+  if (options.addons) details.push(`Add-ons: ${options.addons}`);
+  if (options.notes) details.push(`Notes: ${options.notes}`);
+
+  if (details.length > 0) {
+    params.set("a1", details.join(" | "));
+  }
+
+  const separator = baseUrl.includes("?") ? "&" : "?";
+  return `${baseUrl}${separator}${params.toString()}`;
+}

@@ -71,7 +71,7 @@ export default function EstimatorWizard() {
               {step === 2 && <StepVehicleDetails details={vehicleDetails} onChange={setVehicleDetails} />}
               {step === 3 && <StepService selected={serviceSlugs} onToggle={toggleService} />}
               {step === 4 && serviceSlugs.length > 0 && <StepAddons serviceSlugs={serviceSlugs} selected={selectedAddons} onToggle={toggleAddon} />}
-              {step === 5 && result && <StepResult result={result} onReset={handleReset} />}
+              {step === 5 && result && <StepResult result={result} vehicleDetails={{ type: vehicleType!, make: vehicleDetails.make ?? "", model: vehicleDetails.model ?? "", year: vehicleDetails.year ?? "", mileage: vehicleDetails.mileage }} onReset={handleReset} />}
             </motion.div>
           </AnimatePresence>
 
