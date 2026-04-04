@@ -48,7 +48,8 @@ export default function BookingSection() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Frontend-ready — wire up to backend/Calendly/email integration later
+    // TODO: Wire up to backend / Calendly / email integration
+    // Example: await fetch('/api/booking', { method: 'POST', body: JSON.stringify(form) })
     setSubmitted(true);
   }
 
