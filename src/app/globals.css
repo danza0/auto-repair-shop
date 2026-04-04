@@ -1,17 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 15, 15, 20;
-  --background-rgb: 255, 255, 255;
+  --navy-950:  #060912;
+  --navy-900:  #0a0e1a;
+  --navy-850:  #0d1321;
+  --navy-800:  #111827;
+  --navy-700:  #1a2332;
+  --navy-600:  #1e293b;
+  --accent:    #f97316;
+  --accent-light: #fb923c;
+  --accent-dark:  #ea580c;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: #ffffff;
+  background: var(--navy-900);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -21,3 +28,39 @@ html { scroll-behavior: smooth; }
 
 .section-padding { @apply py-20 px-4 sm:px-6 lg:px-8; }
 .container-max { @apply max-w-7xl mx-auto; }
+
+/* Orange glow utilities */
+.glow-accent {
+  box-shadow: 0 0 20px 4px rgba(249, 115, 22, 0.3);
+}
+.glow-accent-sm {
+  box-shadow: 0 0 10px 2px rgba(249, 115, 22, 0.2);
+}
+.text-glow {
+  text-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+}
+
+/* Card border glow on hover */
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(30, 41, 59, 0.8);
+}
+.card-hover:hover {
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 0 20px 2px rgba(249, 115, 22, 0.15), 0 20px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+}
+
+/* Subtle grid background pattern */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(249, 115, 22, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Dot grid pattern */
+.bg-dots {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

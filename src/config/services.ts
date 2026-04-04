@@ -6,24 +6,51 @@ export interface Service {
   icon: string;
   category: string;
   details: string[];
+  featured?: boolean;
 }
 
 export const services: Service[] = [
+  // ── SmartCare 6 Core / Featured Services ──────────────────────────────────
   {
-    slug: "diagnostics", title: "Diagnostics",
-    description: "Advanced computer diagnostics to identify exactly what your vehicle needs.",
+    slug: "diagnostics", title: "Diagnostics", featured: true,
+    description: "State-of-the-art computer diagnostics to pinpoint exactly what your vehicle needs — fast and accurate.",
     startingPrice: "From $89", icon: "cpu", category: "Inspection",
-    details: ["Full system scan", "Error code analysis", "Written diagnostic report", "Repair recommendations"],
+    details: ["Full OBD system scan", "Error code analysis", "Written diagnostic report", "Repair recommendations"],
   },
   {
-    slug: "oil-change", title: "Oil Change",
-    description: "Conventional and full synthetic oil changes with multi-point inspection.",
-    startingPrice: "From $49", icon: "droplets", category: "Maintenance",
-    details: ["Conventional or synthetic", "Filter replacement", "Multi-point inspection", "Fluid top-off"],
+    slug: "programming", title: "Programming", featured: true,
+    description: "ECU, key fob, module, and system programming using professional-grade tools for any make or model.",
+    startingPrice: "From $99", icon: "code", category: "Electronics",
+    details: ["ECU / PCM programming", "Key fob & immobilizer setup", "Module calibration", "Software updates"],
   },
+  {
+    slug: "bev-hybrids", title: "BEV / Hybrids", featured: true,
+    description: "Specialized service for Battery Electric Vehicles and hybrids — from battery diagnostics to regenerative brake repair.",
+    startingPrice: "From $129", icon: "battery-charging", category: "EV Service",
+    details: ["HV battery diagnostics", "Hybrid system scan", "Regenerative brake service", "Inverter & motor checks"],
+  },
+  {
+    slug: "electronics", title: "Electronics", featured: true,
+    description: "Comprehensive automotive electronics repair — wiring, sensors, infotainment, and control modules.",
+    startingPrice: "From $89", icon: "monitor", category: "Electrical",
+    details: ["Wiring & circuit diagnosis", "Sensor replacement", "Infotainment repair", "Control module repair"],
+  },
+  {
+    slug: "diesels", title: "Diesels", featured: true,
+    description: "Expert diesel engine service and repair — injectors, turbos, emissions, and performance tuning.",
+    startingPrice: "From $99", icon: "truck", category: "Diesel",
+    details: ["Injector service & testing", "Turbocharger inspection", "DPF / emissions service", "Fuel system repair"],
+  },
+  {
+    slug: "maintenance", title: "Maintenance", featured: true,
+    description: "Scheduled maintenance packages to keep your vehicle running like new and your warranty intact.",
+    startingPrice: "From $49", icon: "wrench", category: "Maintenance",
+    details: ["Oil & filter change", "30/60/90k services", "Fluid flushes", "Multi-point inspection"],
+  },
+  // ── Additional Services ────────────────────────────────────────────────────
   {
     slug: "brake-service", title: "Brake Service",
-    description: "Complete brake system inspection and repair. Pads, rotors, calipers, and fluid.",
+    description: "Complete brake system inspection and repair — pads, rotors, calipers, and fluid.",
     startingPrice: "From $129", icon: "circle-dot", category: "Safety",
     details: ["Pad & rotor inspection", "Caliper check", "Brake fluid test", "Road test"],
   },
@@ -62,11 +89,5 @@ export const services: Service[] = [
     description: "Automatic and manual transmission service.",
     startingPrice: "Estimate Required", icon: "git-branch", category: "Drivetrain",
     details: ["Fluid analysis", "Diagnostic scan", "Pressure test", "Detailed estimate"],
-  },
-  {
-    slug: "general-maintenance", title: "General Maintenance",
-    description: "Scheduled maintenance packages that keep your warranty valid.",
-    startingPrice: "From $79", icon: "wrench", category: "Maintenance",
-    details: ["30/60/90k services", "Filter replacements", "Fluid flushes", "Multi-point inspection"],
   },
 ];

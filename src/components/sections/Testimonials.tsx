@@ -2,43 +2,84 @@
 
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
-import { Card, CardContent } from "@/components/ui/Card";
 import { Star } from "lucide-react";
 
 const testimonials = [
-  { name: "Sarah M.", vehicle: "2019 Honda Accord", rating: 5, text: "Brought my car in for a mysterious noise. They diagnosed it quickly, gave me a fair estimate, and fixed it same day. Couldn't be happier!" },
-  { name: "James T.", vehicle: "2021 Ford F-150", rating: 5, text: "Best shop in town. I've been coming here for years. Transparent pricing, fast service, and they always explain what needs to be done and why." },
-  { name: "Maria L.", vehicle: "2018 BMW 3 Series", rating: 5, text: "They specialize in European vehicles which is why I trust them with my BMW. Fair prices and they always do quality work with a warranty." },
-  { name: "David K.", vehicle: "2020 Toyota RAV4", rating: 5, text: "Routine oil change turned into them catching a brake issue I didn't know about. They showed me the wear and gave me options. Honest shop!" },
-  { name: "Rachel P.", vehicle: "2022 Chevy Tahoe", rating: 5, text: "Online booking was super easy. I picked my time, dropped off, got a text when it was done. The whole experience was seamless." },
-  { name: "Mike H.", vehicle: "2017 Subaru Outback", rating: 5, text: "They did a full transmission service on my Subaru. Quoted me a fair price and came in under budget. Will definitely be back." },
+  {
+    name: "Carlos M.",
+    vehicle: "2021 Toyota Camry Hybrid",
+    rating: 5,
+    text: "They diagnosed my hybrid system issue when two other shops couldn't figure it out. Professional, fast, and they explained everything clearly in Spanish.",
+  },
+  {
+    name: "James T.",
+    vehicle: "2020 Ford F-250 Diesel",
+    rating: 5,
+    text: "Best diesel shop I've found in the area. They know their stuff — diagnosed a tricky injector issue and had me back on the road same week. Fair price too.",
+  },
+  {
+    name: "Natasha V.",
+    vehicle: "2019 Chevrolet Bolt EV",
+    rating: 5,
+    text: "Finally a shop that actually knows EVs. They handled a battery warning code and a programming issue for my Bolt without any issues. Very happy with SmartCare.",
+  },
+  {
+    name: "David K.",
+    vehicle: "2018 BMW 3 Series",
+    rating: 5,
+    text: "Needed ECU programming after a repair — they got it done right the first time. No dealership markup, way more personal service. Highly recommend.",
+  },
+  {
+    name: "Rachel P.",
+    vehicle: "2022 Kia Sorento",
+    rating: 5,
+    text: "Great experience from start to finish. Called in the morning, got an appointment the next day, and they kept me updated the whole time. Clean shop, honest team.",
+  },
+  {
+    name: "Mike H.",
+    vehicle: "2017 Ram 2500 Diesel",
+    rating: 5,
+    text: "Took my Ram 2500 in for a DPF issue. They diagnosed it quickly and gave me a fair written estimate before touching anything. Will be my go-to shop going forward.",
+  },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="section-padding bg-white">
-      <div className="container-max">
+    <section className="section-padding bg-navy-850 relative overflow-hidden">
+      <div className="absolute inset-0 bg-dots opacity-30 pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-48 bg-accent-500/4 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container-max relative">
         <div className="text-center mb-16">
-          <Badge variant="blue" className="mb-4">Customer Reviews</Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">Don&apos;t take our word for it. Here&apos;s what real customers think about AutoPrecision.</p>
+          <Badge variant="accent" className="mb-4">Customer Reviews</Badge>
+          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
+            What Our Customers Say
+          </h2>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            Real feedback from real customers in the Spanaway community.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
-            <motion.div key={t.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}>
-              <Card className="h-full">
-                <CardContent className="p-6">
-                  <div className="flex gap-0.5 mb-4">
-                    {Array.from({ length: t.rating }).map((_, j) => <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
-                  </div>
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
-                    <p className="text-gray-500 text-xs">{t.vehicle}</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              viewport={{ once: true }}
+              className="bg-navy-800 rounded-2xl border border-navy-600 p-6 hover:border-accent-500/30 transition-colors"
+            >
+              <div className="flex gap-0.5 mb-4">
+                {Array.from({ length: t.rating }).map((_, j) => (
+                  <Star key={j} className="w-4 h-4 fill-accent-500 text-accent-500" />
+                ))}
+              </div>
+              <p className="text-slate-300 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
+              <div className="pt-4 border-t border-navy-700">
+                <p className="font-semibold text-white text-sm">{t.name}</p>
+                <p className="text-slate-500 text-xs">{t.vehicle}</p>
+              </div>
             </motion.div>
           ))}
         </div>
