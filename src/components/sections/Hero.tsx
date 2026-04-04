@@ -2,7 +2,7 @@
 
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
-import { Phone, ChevronRight, Cpu, Zap, Languages, Camera } from "lucide-react";
+import { Calculator, ChevronRight, Cpu, Zap, Languages, Camera } from "lucide-react";
 import { useEffect } from "react";
 
 const trustItems = [
@@ -262,13 +262,13 @@ export default function Hero() {
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <a
-                  href="tel:+12532143774"
+                <Link
+                  href="/estimate"
                   className="inline-flex items-center justify-center gap-2 font-bold rounded-xl border-2 border-white/30 text-white hover:border-accent-500 hover:text-accent-400 text-lg px-8 py-4 transition-all duration-200"
                 >
-                  <Phone className="w-5 h-5" />
-                  (253) 214-3774
-                </a>
+                  <Calculator className="w-5 h-5" />
+                  Get Free Estimate
+                </Link>
               </motion.div>
             </motion.div>
 
