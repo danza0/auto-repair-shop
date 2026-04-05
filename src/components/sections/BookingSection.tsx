@@ -77,6 +77,7 @@ export default function BookingSection() {
   return (
     <section id="booking" className="relative py-28 md:py-36 bg-navy-900 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent-500/[0.04] rounded-full blur-[120px] pointer-events-none" />
+      <div className="noise absolute inset-0 pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header */}

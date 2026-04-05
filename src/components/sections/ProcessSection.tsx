@@ -12,23 +12,25 @@ const steps = [
   { icon: CheckCircle, step: "05", title: "Drive Away Happy", description: "We walk you through what was done, answer questions, and get you driving again." },
 ];
 
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const lineWidth = useTransform(scrollYProgress, [0.1, 0.6], ["0%", "100%"]);
+  const lineWidth = useTransform(scrollYProgress, [0.15, 0.55], ["0%", "100%"]);
 
   return (
     <section ref={sectionRef} className="relative py-28 md:py-36 bg-navy-950 overflow-hidden">
-      {/* Subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.012)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.012)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+      <div className="noise absolute inset-0 pointer-events-none" />
 
-      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-20"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -58,19 +60,19 @@ export default function ProcessSection() {
             return (
               <motion.div
                 key={s.step}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                className="relative"
+                transition={{ delay: i * 0.06, ...spring }}
+                className="relative group"
               >
-                {/* Step number */}
-                <div className="text-[80px] lg:text-[100px] font-display font-bold text-white/[0.03] leading-none absolute -top-4 -left-2 select-none pointer-events-none">
+                {/* Giant step number */}
+                <div className="text-[80px] lg:text-[100px] font-display font-bold text-white/[0.025] leading-none absolute -top-4 -left-2 select-none pointer-events-none">
                   {s.step}
                 </div>
 
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/15 flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/15 flex items-center justify-center mb-4 group-hover:bg-accent-500/15 group-hover:shadow-[0_0_16px_rgba(249,115,22,0.1)] transition-all duration-300">
                     <Icon className="w-5 h-5 text-accent-500" />
                   </div>
                   <span className="text-accent-500/60 text-[10px] font-mono tracking-widest mb-2 block">STEP {s.step}</span>

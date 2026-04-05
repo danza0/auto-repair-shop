@@ -16,6 +16,7 @@ export default function ContactSection() {
     <section id="contact" className="relative py-28 md:py-36 bg-navy-900 overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent-500/[0.04] rounded-full blur-[120px] pointer-events-none" />
+      <div className="noise absolute inset-0 pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header */}

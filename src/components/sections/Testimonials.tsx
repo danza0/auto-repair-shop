@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   { name: "Carlos M.", vehicle: "2021 Toyota Camry Hybrid", rating: 5, text: "They diagnosed my hybrid system issue when two other shops couldn't figure it out. Professional, fast, and they explained everything clearly in Spanish." },
@@ -14,18 +14,23 @@ const testimonials = [
 
 function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
   return (
-    <div className="flex-shrink-0 w-[340px] sm:w-[400px] p-6 rounded-2xl border border-white/5 bg-navy-900/50">
+    <div className="flex-shrink-0 w-[340px] sm:w-[400px] p-6 rounded-2xl border border-white/[0.06] bg-navy-900/50 hover:border-accent-500/15 transition-all duration-300 relative overflow-hidden group">
+      {/* Subtle quote watermark */}
+      <Quote className="absolute top-4 right-4 w-8 h-8 text-white/[0.03] rotate-180" />
+
       {/* Stars */}
       <div className="flex gap-1 mb-4">
         {Array.from({ length: t.rating }).map((_, i) => (
           <Star key={i} className="w-3.5 h-3.5 fill-accent-400 text-accent-400" />
         ))}
       </div>
+
       {/* Quote */}
-      <p className="text-slate-300 text-sm leading-relaxed mb-6">&ldquo;{t.text}&rdquo;</p>
+      <p className="text-slate-300 text-sm leading-relaxed mb-6 relative">&ldquo;{t.text}&rdquo;</p>
+
       {/* Author */}
       <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-        <div className="w-8 h-8 rounded-full bg-accent-500/10 flex items-center justify-center">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-accent-500/20 to-accent-600/10 border border-accent-500/15 flex items-center justify-center">
           <span className="text-accent-400 text-xs font-display font-bold">{t.name[0]}</span>
         </div>
         <div>
@@ -38,31 +43,37 @@ function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
 }
 
 export default function Testimonials() {
-  // Double the testimonials for seamless infinite scroll
   const row1 = [...testimonials, ...testimonials];
   const row2 = [...testimonials.slice(3), ...testimonials.slice(0, 3), ...testimonials.slice(3), ...testimonials.slice(0, 3)];
 
   return (
     <section className="relative py-28 md:py-36 bg-navy-900 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 mb-16">
+      <div className="noise absolute inset-0 pointer-events-none" />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 mb-16">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-accent-500/50" />
             <span className="text-accent-500 text-xs font-mono tracking-widest uppercase">Reviews</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white">
-            What Our Customers<br />
-            <span className="gradient-text">Say.</span>
-          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-end">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white">
+              What Our Customers<br />
+              <span className="gradient-text">Say.</span>
+            </h2>
+            <p className="text-lg text-slate-400 max-w-md lg:ml-auto leading-relaxed">
+              Real reviews from real customers. We let our work speak for itself.
+            </p>
+          </div>
         </motion.div>
       </div>
 
-      {/* Marquee row 1 — left */}
+      {/* Marquee row 1 */}
       <div className="relative mb-5">
         <div className="marquee-track animate-marquee">
           <div className="flex gap-5 pr-5">
@@ -76,12 +87,11 @@ export default function Testimonials() {
             ))}
           </div>
         </div>
-        {/* Edge fades */}
-        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-navy-900 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-navy-900 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-navy-900 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-navy-900 to-transparent pointer-events-none z-10" />
       </div>
 
-      {/* Marquee row 2 — right */}
+      {/* Marquee row 2 */}
       <div className="relative">
         <div className="marquee-track animate-marquee-rev">
           <div className="flex gap-5 pr-5">
@@ -95,8 +105,8 @@ export default function Testimonials() {
             ))}
           </div>
         </div>
-        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-navy-900 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-navy-900 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-navy-900 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-navy-900 to-transparent pointer-events-none z-10" />
       </div>
     </section>
   );
