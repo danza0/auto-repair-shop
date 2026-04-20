@@ -146,28 +146,30 @@ body {
 html, body { transition: background-color 0.35s ease, color 0.35s ease; }
 
 [data-theme="light"] {
-  --black-pure: #f5f7fb;
-  --black-deep: #eef1f6;
-  --navy-950: #f5f7fb;
-  --navy-900: #eef1f6;
+  --black-pure: #f4f6fb;    /* page bg — faintly navy-tinted */
+  --black-deep: #e6ecf5;    /* alt-section bg — clearer navy tint */
+  --navy-950: #f4f6fb;
+  --navy-900: #e6ecf5;
+  --brand-navy: #0b1f4d;    /* strong brand navy for accents */
 }
 
 [data-theme="light"] body {
-  background: #f5f7fb;
-  color: #0f172a;
+  background: #f4f6fb;
+  color: #0b1f4d;           /* primary text — rich navy, not black */
 }
 
-[data-theme="light"] ::-webkit-scrollbar-track { background: #eef1f6; }
-[data-theme="light"] ::selection { background: rgba(249,115,22,0.25); color: #0f172a; }
+[data-theme="light"] ::-webkit-scrollbar-track { background: #e6ecf5; }
+[data-theme="light"] ::selection { background: rgba(249,115,22,0.25); color: #0b1f4d; }
 
 /* Page / deep surfaces */
 [data-theme="light"] .bg-black-pure,
+[data-theme="light"] .bg-navy-950 { background-color: #f4f6fb !important; }
+
 [data-theme="light"] .bg-black-deep,
 [data-theme="light"] .bg-black-rich,
-[data-theme="light"] .bg-navy-950,
-[data-theme="light"] .bg-navy-900 { background-color: #f5f7fb !important; }
+[data-theme="light"] .bg-navy-900,
+[data-theme="light"] .bg-navy-850 { background-color: #e6ecf5 !important; }
 
-[data-theme="light"] .bg-navy-850 { background-color: #eef1f6 !important; }
 [data-theme="light"] .bg-navy-800 { background-color: #ffffff !important; }
 [data-theme="light"] .bg-navy-700 { background-color: #f8fafc !important; }
 [data-theme="light"] .bg-navy-600 { background-color: #eef2f7 !important; }
@@ -185,34 +187,47 @@ html, body { transition: background-color 0.35s ease, color 0.35s ease; }
 [data-theme="light"] [class*="bg-white/["] { background-color: rgba(15, 23, 42, 0.03) !important; }
 [data-theme="light"] [class*="border-white/["] { border-color: rgba(15, 23, 42, 0.08) !important; }
 
-/* Text */
-[data-theme="light"] .text-white { color: #0f172a !important; }
-[data-theme="light"] .text-slate-300 { color: #334155 !important; }
-[data-theme="light"] .text-slate-400 { color: #475569 !important; }
-[data-theme="light"] .text-slate-500 { color: #64748b !important; }
-[data-theme="light"] .text-slate-600 { color: #475569 !important; }
+/* Text — navy-tinted primary instead of pure black for brand feel */
+[data-theme="light"] .text-white { color: #0b1f4d !important; }
+[data-theme="light"] .text-slate-300 { color: #1e3a6b !important; }
+[data-theme="light"] .text-slate-400 { color: #3a5180 !important; }
+[data-theme="light"] .text-slate-500 { color: #5a6f96 !important; }
+[data-theme="light"] .text-slate-600 { color: #3a5180 !important; }
 
-/* Borders */
+/* Borders — subtle navy tint, not pure grey */
 [data-theme="light"] .border-navy-500,
 [data-theme="light"] .border-navy-600,
 [data-theme="light"] .border-navy-700,
 [data-theme="light"] .border-navy-800,
-[data-theme="light"] .border-navy-900 { border-color: #e2e8f0 !important; }
+[data-theme="light"] .border-navy-900 { border-color: #d0dbec !important; }
 
-[data-theme="light"] .hover\:border-navy-500:hover { border-color: #cbd5e1 !important; }
+[data-theme="light"] .hover\:border-navy-500:hover { border-color: #1e3a8a !important; }
 
-/* white/5, white/10 subtle surfaces flip to dark-on-light */
-[data-theme="light"] .bg-white\/5  { background-color: rgba(15, 23, 42, 0.04) !important; }
-[data-theme="light"] .bg-white\/10 { background-color: rgba(15, 23, 42, 0.07) !important; }
-[data-theme="light"] .hover\:bg-white\/5:hover  { background-color: rgba(15, 23, 42, 0.05) !important; }
-[data-theme="light"] .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
+/* white/5, white/10 subtle surfaces flip to navy-tinted dark-on-light */
+[data-theme="light"] .bg-white\/5  { background-color: rgba(11, 31, 77, 0.04) !important; }
+[data-theme="light"] .bg-white\/10 { background-color: rgba(11, 31, 77, 0.07) !important; }
+[data-theme="light"] .hover\:bg-white\/5:hover  { background-color: rgba(11, 31, 77, 0.06) !important; }
+[data-theme="light"] .hover\:bg-white\/10:hover { background-color: rgba(11, 31, 77, 0.09) !important; }
 [data-theme="light"] .border-white\/5,
 [data-theme="light"] .border-white\/10,
-[data-theme="light"] [class*="border-white/"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+[data-theme="light"] [class*="border-white/"] { border-color: rgba(11, 31, 77, 0.1) !important; }
 
 /* Glass */
-[data-theme="light"] .glass { background: rgba(255, 255, 255, 0.75) !important; }
-[data-theme="light"] .glass-light { background: rgba(15, 23, 42, 0.04) !important; }
+[data-theme="light"] .glass { background: rgba(255, 255, 255, 0.78) !important; border-color: rgba(11, 31, 77, 0.08) !important; }
+[data-theme="light"] .glass-light { background: rgba(11, 31, 77, 0.04) !important; }
+
+/* Line accent — alternate navy + orange divider in light mode */
+[data-theme="light"] .line-accent {
+  background: linear-gradient(90deg, transparent, rgba(11,31,77,0.25), rgba(249,115,22,0.35), rgba(11,31,77,0.25), transparent) !important;
+}
+
+/* Card lift shadow with a navy-tinted hue */
+[data-theme="light"] .bg-navy-800 { box-shadow: 0 1px 2px rgba(11,31,77,0.05), 0 4px 14px rgba(11,31,77,0.06) !important; }
+[data-theme="light"] .bg-navy-700 { box-shadow: 0 1px 2px rgba(11,31,77,0.04), 0 4px 12px rgba(11,31,77,0.05) !important; }
+
+/* Navy-tinted border on subtle surfaces */
+[data-theme="light"] [class*="bg-white/["] { background-color: rgba(11, 31, 77, 0.03) !important; }
+[data-theme="light"] [class*="border-white/["] { border-color: rgba(11, 31, 77, 0.09) !important; }
 
 /* Gradient stops — rewrite the Tailwind gradient CSS vars */
 [data-theme="light"] .from-black-pure,
@@ -260,8 +275,68 @@ html, body { transition: background-color 0.35s ease, color 0.35s ease; }
 [data-theme="light"] .glow-accent { box-shadow: 0 0 60px 12px rgba(249,115,22,0.22); }
 [data-theme="light"] .text-glow   { text-shadow: 0 0 60px rgba(249,115,22,0.35); }
 
-/* Card & elevated surfaces get a soft shadow in light mode */
-[data-theme="light"] .bg-navy-800,
-[data-theme="light"] .bg-navy-700 {
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 14px rgba(15, 23, 42, 0.05);
+/* Navbar when sitting over the dark hero — keep white text */
+[data-theme="light"] nav[data-over="hero"] .text-white { color: #ffffff !important; }
+[data-theme="light"] nav[data-over="hero"] .text-slate-300 { color: #cbd5e1 !important; }
+[data-theme="light"] nav[data-over="hero"] .text-slate-400 { color: #94a3b8 !important; }
+[data-theme="light"] nav[data-over="hero"] .text-slate-500 { color: #64748b !important; }
+[data-theme="light"] nav[data-over="hero"] .hover\:text-white:hover { color: #ffffff !important; }
+[data-theme="light"] nav[data-over="hero"] .hover\:bg-white\/5:hover { background-color: rgba(255,255,255,0.06) !important; }
+[data-theme="light"] nav[data-over="hero"] .border-white\/5,
+[data-theme="light"] nav[data-over="hero"] .border-white\/10,
+[data-theme="light"] nav[data-over="hero"] [class*="border-white/"] { border-color: rgba(255,255,255,0.1) !important; }
+[data-theme="light"] nav[data-over="hero"] .bg-white\/5 { background-color: rgba(255,255,255,0.05) !important; }
+
+/* ─────────────────────────────────────────────
+   Hero section — preserve dark theme always
+   Page hero = main's first <section>. We reset all
+   of the above overrides inside it so navy/orange
+   brand hero stays dark on any theme.
+   ───────────────────────────────────────────── */
+[data-theme="light"] main > section:first-child {
+  --black-pure: #070709;
+  --black-deep: #0A0A0F;
+  --navy-950: #04060d;
+  --navy-900: #080c18;
+  color: #ffffff;
+}
+[data-theme="light"] main > section:first-child .bg-black-pure,
+[data-theme="light"] main > section:first-child .bg-navy-950 { background-color: #04060d !important; }
+[data-theme="light"] main > section:first-child .bg-black-deep,
+[data-theme="light"] main > section:first-child .bg-black-rich,
+[data-theme="light"] main > section:first-child .bg-navy-900,
+[data-theme="light"] main > section:first-child .bg-navy-850 { background-color: #080c18 !important; }
+[data-theme="light"] main > section:first-child .bg-navy-800 { background-color: #0d1530 !important; box-shadow: none !important; }
+[data-theme="light"] main > section:first-child .bg-navy-700 { background-color: #162243 !important; box-shadow: none !important; }
+
+[data-theme="light"] main > section:first-child .text-white { color: #ffffff !important; }
+[data-theme="light"] main > section:first-child .text-slate-300 { color: #cbd5e1 !important; }
+[data-theme="light"] main > section:first-child .text-slate-400 { color: #94a3b8 !important; }
+[data-theme="light"] main > section:first-child .text-slate-500 { color: #64748b !important; }
+[data-theme="light"] main > section:first-child .text-slate-600 { color: #94a3b8 !important; }
+
+[data-theme="light"] main > section:first-child .border-white\/5,
+[data-theme="light"] main > section:first-child .border-white\/10,
+[data-theme="light"] main > section:first-child [class*="border-white/"] { border-color: rgba(255,255,255,0.08) !important; }
+[data-theme="light"] main > section:first-child .bg-white\/5  { background-color: rgba(255,255,255,0.05) !important; }
+[data-theme="light"] main > section:first-child .bg-white\/10 { background-color: rgba(255,255,255,0.08) !important; }
+[data-theme="light"] main > section:first-child [class*="bg-white/["] { background-color: rgba(255,255,255,0.03) !important; }
+[data-theme="light"] main > section:first-child [class*="border-white/["] { border-color: rgba(255,255,255,0.08) !important; }
+
+[data-theme="light"] main > section:first-child .glass {
+  background: rgba(7, 7, 9, 0.55) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+[data-theme="light"] main > section:first-child [class*="from-black-pure"],
+[data-theme="light"] main > section:first-child [class*="from-navy-900"],
+[data-theme="light"] main > section:first-child [class*="from-navy-950"] {
+  --tw-gradient-from: #04060d var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(4, 6, 13, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+[data-theme="light"] main > section:first-child [class*="to-black-pure"],
+[data-theme="light"] main > section:first-child [class*="to-navy-900"],
+[data-theme="light"] main > section:first-child [class*="to-navy-950"] {
+  --tw-gradient-to: #04060d var(--tw-gradient-to-position) !important;
 }

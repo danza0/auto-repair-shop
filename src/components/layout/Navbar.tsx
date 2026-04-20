@@ -26,7 +26,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50" data-over={scrolled ? "content" : "hero"}>
       <div
         className={cn(
           "transition-all duration-700 ease-out",
