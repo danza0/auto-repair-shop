@@ -11,14 +11,29 @@ export const metadata: Metadata = {
     "SmartCare Auto Repair in Spanaway, WA — expert diagnostics, programming, BEV/hybrid service, electronics, diesel repair, and maintenance. Call (253) 214-3774.",
 };
 
+const themeInitScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="antialiased">
-      <body className="bg-navy-950 text-white">
+    <html lang="en" className="antialiased" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="bg-black-pure text-white">
         <Navbar />
         <main className="relative">{children}</main>
         <Footer />
