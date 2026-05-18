@@ -88,7 +88,7 @@ export default function SpecialtiesSection() {
                     <p className="text-slate-400 text-base leading-relaxed mb-8">{specialty.description}</p>
 
                     <Link
-                      href="/#booking"
+                      href="/book"
                       className="inline-flex items-center gap-2 font-display font-semibold text-accent-400 hover:text-accent-300 text-sm min-h-[44px] transition-colors duration-200"
                     >
                       Book This Service

@@ -5,7 +5,7 @@ import Logo from "@/components/ui/Logo";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Book Appointment", href: "/#booking" },
+  { label: "Book Appointment", href: "/book" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -51,9 +51,9 @@ export default function Footer() {
                 <Phone className="w-3.5 h-3.5 text-accent-500/70 flex-shrink-0" />
                 (253) 214-3774
               </a>
-              <a href="mailto:smartalexmechanic@gmail.com" className="flex items-center gap-2.5 hover:text-white transition-colors">
+              <a href="mailto:smartcareautorepair@gmail.com" className="flex items-center gap-2.5 hover:text-white transition-colors">
                 <Mail className="w-3.5 h-3.5 text-accent-500/70 flex-shrink-0" />
-                smartalexmechanic@gmail.com
+                smartcareautorepair@gmail.com
               </a>
               <a href="https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387" target="_blank" rel="noopener noreferrer" className="flex items-start gap-2.5 hover:text-white transition-colors">
                 <MapPin className="w-3.5 h-3.5 text-accent-500/70 flex-shrink-0 mt-0.5" />
@@ -63,7 +63,7 @@ export default function Footer() {
             </div>
             <div className="mt-6">
               <Link
-                href="/#booking"
+                href="/book"
                 className="inline-flex items-center justify-center font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-sm px-6 py-3 transition-all duration-300 shadow-[0_0_20px_rgba(249,115,22,0.15)] hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]"
               >
                 Book Online

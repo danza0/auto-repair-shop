@@ -9,7 +9,7 @@ export const metadata = {
 
 const contactDetails = [
   { icon: Phone, label: "Phone", value: "(253) 214-3774", href: "tel:+12532143774" },
-  { icon: Mail, label: "Email", value: "smartalexmechanic@gmail.com", href: "mailto:smartalexmechanic@gmail.com" },
+  { icon: Mail, label: "Email", value: "smartcareautorepair@gmail.com", href: "mailto:smartcareautorepair@gmail.com" },
   { icon: MapPin, label: "Address", value: "108 163rd St S, Spanaway, WA 98387", href: "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387" },
   { icon: Clock, label: "Hours", value: "Monday – Friday, 9 AM – 5 PM", href: null },
   { icon: Globe, label: "Languages", value: "English · Spanish · Russian", href: null },
@@ -55,7 +55,7 @@ export default function ContactPage() {
 
           <div className="text-center">
             <Link
-              href="/#booking"
+              href="/book"
               className="inline-flex items-center justify-center font-bold rounded-xl bg-accent-500 text-white hover:bg-accent-400 text-lg px-8 py-4 transition-all duration-200 shadow-lg hover:shadow-accent-500/30 hover:scale-[1.02]"
             >
               Book an Appointment

@@ -6,7 +6,6 @@ import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Logo from "@/components/ui/Logo";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -27,7 +26,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50" data-over={scrolled ? "content" : "hero"}>
+    <nav className="fixed top-0 left-0 right-0 z-50">
       <div
         className={cn(
           "transition-all duration-700 ease-out",
@@ -73,9 +72,8 @@ export default function Navbar() {
               <Phone className="w-3.5 h-3.5" />
               (253) 214-3774
             </a>
-            <ThemeToggle />
             <Link
-              href="/#booking"
+              href="/book"
               className="inline-flex items-center justify-center font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-[13px] px-5 py-2 transition-all duration-300 shadow-[0_0_20px_rgba(249,115,22,0.2)] hover:shadow-[0_0_30px_rgba(249,115,22,0.35)]"
             >
               Book Now
@@ -84,7 +82,6 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <div className="flex items-center gap-2 lg:hidden">
-            <ThemeToggle />
             <button
               className="p-2 rounded-full text-slate-400 hover:bg-white/5 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
@@ -148,7 +145,7 @@ export default function Navbar() {
                   (253) 214-3774
                 </a>
                 <Link
-                  href="/#booking"
+                  href="/book"
                   className="inline-flex items-center justify-center font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-base px-8 py-3.5 transition-all duration-300 shadow-[0_0_30px_rgba(249,115,22,0.25)]"
                   onClick={() => setIsOpen(false)}
                 >

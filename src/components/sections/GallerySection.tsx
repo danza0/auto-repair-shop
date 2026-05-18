@@ -201,7 +201,7 @@ export default function GallerySection() {
               </div>
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 flex-shrink-0">
                 <Link
-                  href="/#booking"
+                  href="/book"
                   className="inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-sm px-5 py-3 transition-all duration-200 shadow-[0_0_20px_rgba(249,115,22,0.25)] hover:shadow-[0_0_30px_rgba(249,115,22,0.4)]"
                 >
                   <Calendar className="w-4 h-4" />

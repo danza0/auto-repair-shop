@@ -1,26 +1,110 @@
-export type BookingType = "self-schedule" | "approval-required" | "consultation-first";
-
 export interface BookingConfig {
   serviceSlug: string;
   serviceName: string;
   calendlyUrl: string;
-  bookingType: BookingType;
   durationMinutes: number;
-  dailyCapacityNote: string;
-  requiresApproval: boolean;
-  approvalMessage?: string;
-  availabilityNote?: string;
+  availabilityNote: string;
+  /** Marked true when the service requires us to look at the car before scheduling. */
+  consultationFirst?: boolean;
 }
 
+/**
+ * Per-service Calendly URLs. Each event type can carry its own custom
+ * intake questions inside Calendly — that's where the owner customizes
+ * the per-service form. The URL must point at the service's event type.
+ *
+ * To add a new service:
+ *  1. Create an event type in Calendly (e.g. /smartcare/diesels)
+ *  2. Add this URL below
+ *  3. Customize its intake questions in Calendly's dashboard
+ */
 export const bookingConfig: BookingConfig[] = [
-  { serviceSlug: "diagnostics", serviceName: "Diagnostics", calendlyUrl: "https://calendly.com/dushukdanyil/diagnostics", bookingType: "self-schedule", durationMinutes: 60, dailyCapacityNote: "Limited to 2 slots per day", requiresApproval: false, availabilityNote: "Only 2 diagnostic slots available per day. Book early." },
-  { serviceSlug: "oil-change", serviceName: "Oil Change", calendlyUrl: "https://calendly.com/dushukdanyil/oil-change", bookingType: "self-schedule", durationMinutes: 45, dailyCapacityNote: "High availability", requiresApproval: false, availabilityNote: "Flexible scheduling — most times available." },
-  { serviceSlug: "brake-service", serviceName: "Brake Service", calendlyUrl: "https://calendly.com/dushukdanyil/30min", bookingType: "self-schedule", durationMinutes: 90, dailyCapacityNote: "Up to 4 slots per day", requiresApproval: false, availabilityNote: "Same-day brake service available most days." },
-  { serviceSlug: "battery-replacement", serviceName: "Battery Replacement", calendlyUrl: "https://calendly.com/dushukdanyil/30min", bookingType: "self-schedule", durationMinutes: 45, dailyCapacityNote: "High availability", requiresApproval: false, availabilityNote: "Quick service — usually under an hour." },
-  { serviceSlug: "engine-repair", serviceName: "Engine Repair", calendlyUrl: "https://calendly.com/dushukdanyil/30min", bookingType: "consultation-first", durationMinutes: 60, dailyCapacityNote: "Limited to 1 per day", requiresApproval: true, approvalMessage: "Engine repair requires an initial consultation before scheduling.", availabilityNote: "Engine consultation slots are limited — only 1 per day." },
-  { serviceSlug: "ac-heating", serviceName: "AC / Heating", calendlyUrl: "https://calendly.com/dushukdanyil/30min", bookingType: "self-schedule", durationMinutes: 90, dailyCapacityNote: "Up to 3 slots per day", requiresApproval: false, availabilityNote: "AC and heating service available Monday–Saturday." },
-  { serviceSlug: "transmission", serviceName: "Transmission", calendlyUrl: "https://calendly.com/dushukdanyil/30min", bookingType: "consultation-first", durationMinutes: 60, dailyCapacityNote: "Limited to 1 per day", requiresApproval: true, approvalMessage: "Transmission service requires a preliminary inspection.", availabilityNote: "Transmission slots are limited — 1 consultation per day." },
-  { serviceSlug: "general-maintenance", serviceName: "General Maintenance", calendlyUrl: "https://calendly.com/dushukdanyil/30min", bookingType: "self-schedule", durationMinutes: 90, dailyCapacityNote: "High availability", requiresApproval: false, availabilityNote: "Maintenance packages available any day of the week." },
+  {
+    serviceSlug: "diagnostics",
+    serviceName: "Diagnostics",
+    calendlyUrl: "https://calendly.com/dushukdanyil/diagnostics",
+    durationMinutes: 60,
+    availabilityNote: "Only 2 diagnostic slots per day — book early.",
+  },
+  {
+    serviceSlug: "programming",
+    serviceName: "Programming",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 90,
+    availabilityNote: "ECU, key fob, and module programming. Same-week availability.",
+  },
+  {
+    serviceSlug: "bev-hybrids",
+    serviceName: "BEV / Hybrids",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 90,
+    availabilityNote: "EV-certified bay. Service available Mon–Fri.",
+  },
+  {
+    serviceSlug: "electronics",
+    serviceName: "Electronics",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 90,
+    availabilityNote: "Wiring, sensors, modules. Same-week slots most weeks.",
+  },
+  {
+    serviceSlug: "diesels",
+    serviceName: "Diesel Service",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 120,
+    availabilityNote: "Diesel work typically takes 2–4 hours.",
+  },
+  {
+    serviceSlug: "maintenance",
+    serviceName: "Maintenance",
+    calendlyUrl: "https://calendly.com/dushukdanyil/oil-change",
+    durationMinutes: 60,
+    availabilityNote: "Oil changes and scheduled maintenance — most times available.",
+  },
+  {
+    serviceSlug: "brake-service",
+    serviceName: "Brake Service",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 90,
+    availabilityNote: "Same-day brake service available most days.",
+  },
+  {
+    serviceSlug: "battery-replacement",
+    serviceName: "Battery Replacement",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 45,
+    availabilityNote: "Quick service — usually under an hour.",
+  },
+  {
+    serviceSlug: "engine-repair",
+    serviceName: "Engine Repair",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 60,
+    consultationFirst: true,
+    availabilityNote: "Engine work starts with a 60-min consultation. 1 slot per day.",
+  },
+  {
+    serviceSlug: "ac-heating",
+    serviceName: "AC / Heating",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 90,
+    availabilityNote: "AC and heating service Mon–Fri.",
+  },
+  {
+    serviceSlug: "transmission",
+    serviceName: "Transmission",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 60,
+    consultationFirst: true,
+    availabilityNote: "Transmission work starts with an inspection. 1 slot per day.",
+  },
+  {
+    serviceSlug: "other",
+    serviceName: "Other / Not Sure",
+    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
+    durationMinutes: 30,
+    availabilityNote: "We'll figure it out together — describe the issue below.",
+  },
 ];
 
 export const generalBookingUrl = "https://calendly.com/dushukdanyil/30min";
@@ -29,55 +113,57 @@ export function getBookingConfig(serviceSlug: string): BookingConfig | undefined
   return bookingConfig.find((b) => b.serviceSlug === serviceSlug);
 }
 
-export function getBookingUrlForEstimator(serviceSlug: string): string {
-  // Strip consultation/inspection suffixes used in pricing slugs to match booking config slugs
-  const normalized = serviceSlug
-    .replace(/-consultation$/, "")
-    .replace(/-inspection$/, "");
-  const config = getBookingConfig(normalized);
-  return config?.calendlyUrl ?? generalBookingUrl;
+export interface BookingFormPayload {
+  // Customer
+  name: string;
+  email?: string;
+  phone: string;
+  preferredLanguage?: string;
+  // Vehicle
+  vehicleYear?: string;
+  vehicleMake?: string;
+  vehicleModel?: string;
+  vehicleMileage?: string;
+  vehicleVin?: string;
+  // Request
+  services: string; // comma-separated service names
+  problemDescription?: string;
+  preferredTimeframe?: string;
+  hearAboutUs?: string;
 }
 
 /**
- * Build a Calendly URL with prefilled guest info and vehicle/service details.
- * Calendly supports: name, email, a1 (first custom question answer), a2, etc.
- * We pack vehicle + service info into `a1` so the host sees it in the booking.
+ * Build a Calendly URL with the booking-form payload prefilled.
+ * - `name` / `email` are first-class Calendly params and prefill the
+ *   guest form fields.
+ * - Everything else gets packed into `a1` (Calendly's first custom
+ *   question answer) as a structured `Key: value` list so the owner
+ *   sees the full intake at a glance in the Calendly dashboard.
  */
-export function buildCalendlyUrl(
-  baseUrl: string,
-  options?: {
-    name?: string;
-    email?: string;
-    vehicleYear?: string;
-    vehicleMake?: string;
-    vehicleModel?: string;
-    vehicleType?: string;
-    services?: string;
-    estimateRange?: string;
-    addons?: string;
-    notes?: string;
-  }
-): string {
-  if (!options) return baseUrl;
-
+export function buildCalendlyUrl(baseUrl: string, payload: BookingFormPayload): string {
   const params = new URLSearchParams();
 
-  if (options.name) params.set("name", options.name);
-  if (options.email) params.set("email", options.email);
+  if (payload.name) params.set("name", payload.name);
+  if (payload.email) params.set("email", payload.email);
 
-  // Build a detailed note for the host via Calendly's custom question field (a1)
-  const details: string[] = [];
-  if (options.vehicleYear || options.vehicleMake || options.vehicleModel) {
-    details.push(`Vehicle: ${[options.vehicleYear, options.vehicleMake, options.vehicleModel].filter(Boolean).join(" ")}`);
-  }
-  if (options.vehicleType) details.push(`Type: ${options.vehicleType}`);
-  if (options.services) details.push(`Services: ${options.services}`);
-  if (options.estimateRange) details.push(`Estimate: ${options.estimateRange}`);
-  if (options.addons) details.push(`Add-ons: ${options.addons}`);
-  if (options.notes) details.push(`Notes: ${options.notes}`);
+  const lines: string[] = [];
+  if (payload.phone) lines.push(`Phone: ${payload.phone}`);
+  if (payload.preferredLanguage) lines.push(`Language: ${payload.preferredLanguage}`);
 
-  if (details.length > 0) {
-    params.set("a1", details.join(" | "));
+  const vehicleParts = [payload.vehicleYear, payload.vehicleMake, payload.vehicleModel]
+    .filter(Boolean)
+    .join(" ");
+  if (vehicleParts) lines.push(`Vehicle: ${vehicleParts}`);
+  if (payload.vehicleMileage) lines.push(`Mileage: ${payload.vehicleMileage}`);
+  if (payload.vehicleVin) lines.push(`VIN: ${payload.vehicleVin}`);
+
+  if (payload.services) lines.push(`Service: ${payload.services}`);
+  if (payload.problemDescription) lines.push(`Issue: ${payload.problemDescription}`);
+  if (payload.preferredTimeframe) lines.push(`Preferred: ${payload.preferredTimeframe}`);
+  if (payload.hearAboutUs) lines.push(`Found us via: ${payload.hearAboutUs}`);
+
+  if (lines.length > 0) {
+    params.set("a1", lines.join("\n"));
   }
 
   const separator = baseUrl.includes("?") ? "&" : "?";

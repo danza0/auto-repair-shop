@@ -122,7 +122,7 @@ export default function ServicesSection() {
                     ))}
                   </div>
                   <Link
-                    href="/#booking"
+                    href={`/book?service=${featuredMain.slug}`}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 hover:text-accent-300 transition-colors"
                   >
                     Book This Service
@@ -154,7 +154,7 @@ export default function ServicesSection() {
                         <div className="flex items-center justify-between pt-4 border-t border-white/5">
                           <span className="text-[10px] font-mono tracking-widest uppercase text-slate-600">Same-week appts</span>
                           <Link
-                            href="/#booking"
+                            href={`/book?service=${service.slug}`}
                             className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400 group-hover:text-accent-300 transition-colors duration-200"
                           >
                             Book
@@ -211,7 +211,7 @@ export default function ServicesSection() {
                       ))}
                     </div>
                     <Link
-                      href="/#booking"
+                      href="/book"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 hover:text-accent-300 transition-colors whitespace-nowrap"
                     >
                       Book Service

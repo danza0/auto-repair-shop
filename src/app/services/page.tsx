@@ -58,7 +58,7 @@ export default function ServicesPage() {
                   </ul>
                   <div className="flex items-center justify-end pt-4 border-t border-navy-700 mt-auto">
                     <Link
-                      href="/#booking"
+                      href={`/book?service=${service.slug}`}
                       className="inline-flex items-center gap-1 text-sm font-semibold text-accent-400 hover:text-accent-300 transition-colors"
                     >
                       Book Appointment <ArrowRight className="w-3.5 h-3.5" />
@@ -87,7 +87,7 @@ export default function ServicesPage() {
                   <p className="text-slate-400 text-sm mb-4 flex-1">{service.description}</p>
                   <div className="flex items-center justify-end pt-3 border-t border-navy-700 mt-auto">
                     <Link
-                      href="/#booking"
+                      href={`/book?service=${service.slug}`}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-accent-400 hover:text-accent-300 transition-colors"
                     >
                       Book Appointment <ArrowRight className="w-3 h-3" />

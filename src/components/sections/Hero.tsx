@@ -146,7 +146,7 @@ export default function Hero() {
                 className="flex flex-col sm:flex-row gap-4 mb-10"
               >
                 <Link
-                  href="/#booking"
+                  href="/book"
                   className="group inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-base px-8 py-4 min-h-[48px] transition-all duration-200 shadow-[0_0_30px_rgba(249,115,22,0.25)] hover:shadow-[0_0_50px_rgba(249,115,22,0.4)] active:scale-[0.97]"
                 >
                   Book Appointment
