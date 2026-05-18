@@ -7,9 +7,9 @@ const reasons = [
   { icon: Cpu, title: "Expert Diagnostics", description: "Professional-grade diagnostic equipment to find the root cause fast — no guesswork.", accent: true },
   { icon: Zap, title: "EV & Hybrid Specialists", description: "Battery diagnostics to hybrid drive systems — trained and tooled for modern vehicles.", accent: false },
   { icon: MessageSquare, title: "Clear Communication", description: "We explain what's wrong, why it matters, and what it costs — before any work begins.", accent: false },
-  { icon: Globe, title: "Multilingual Service", description: "English, Spanish, and Russian — so you always understand your vehicle's service.", accent: true },
+  { icon: Globe, title: "Multilingual Service", description: "English, Spanish, Ukrainian, and Russian — so you always understand your vehicle's service.", accent: true },
   { icon: Clock, title: "Efficient Turnaround", description: "Most services completed promptly. We keep you updated throughout the process.", accent: false },
-  { icon: DollarSign, title: "Honest Pricing", description: "Written estimates before work starts. Fair rates with no hidden fees.", accent: false },
+  { icon: DollarSign, title: "Honest Pricing", description: "Clear repair plans before work starts. Fair rates with no hidden fees.", accent: false },
 ];
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };

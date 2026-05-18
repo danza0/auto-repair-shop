@@ -1,25 +1,19 @@
 import Hero from "@/components/sections/Hero";
 import ServicesSection from "@/components/sections/ServicesSection";
-import SpecialtiesSection from "@/components/sections/SpecialtiesSection";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import TrustSection from "@/components/sections/TrustSection";
 import ProcessSection from "@/components/sections/ProcessSection";
-import EstimateCTA from "@/components/sections/EstimateCTA";
-import Testimonials from "@/components/sections/Testimonials";
-import BookingSection from "@/components/sections/BookingSection";
-import ContactSection from "@/components/sections/ContactSection";
+import GallerySection from "@/components/sections/GallerySection";
+import BookingContact from "@/components/sections/BookingContact";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       <ServicesSection />
-      <SpecialtiesSection />
-      <WhyChooseUs />
+      <TrustSection />
       <ProcessSection />
-      <EstimateCTA />
-      <Testimonials />
-      <BookingSection />
-      <ContactSection />
+      <GallerySection />
+      <BookingContact />
     </>
   );
 }

@@ -20,8 +20,8 @@ export default function ProcessSection() {
   const lineWidth = useTransform(scrollYProgress, [0.15, 0.55], ["0%", "100%"]);
 
   return (
-    <section ref={sectionRef} className="relative py-28 md:py-36 bg-navy-950 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.012)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.012)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+    <section id="process" ref={sectionRef} className="relative py-28 md:py-36 bg-black-pure overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.008)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.008)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
       <div className="noise absolute inset-0 pointer-events-none" />
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
@@ -39,8 +39,8 @@ export default function ProcessSection() {
             <div className="h-px w-8 bg-accent-500/50" />
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white">
-            Simple, Transparent<br />
-            <span className="gradient-text">Process.</span>
+            Simple from<br />
+            <span className="gradient-text">Start to Finish.</span>
           </h2>
         </motion.div>
 
@@ -53,8 +53,8 @@ export default function ProcessSection() {
           />
         </div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
+        {/* Desktop: horizontal steps */}
+        <div className="hidden lg:grid grid-cols-5 gap-6">
           {steps.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -63,25 +63,61 @@ export default function ProcessSection() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: i * 0.06, ...spring }}
+                transition={{ delay: i * 0.12, ...spring }}
                 className="relative group"
               >
-                {/* Giant step number */}
-                <div className="text-[80px] lg:text-[100px] font-display font-bold text-white/[0.025] leading-none absolute -top-4 -left-2 select-none pointer-events-none">
+                {/* Giant step number watermark */}
+                <div className="text-[140px] font-display font-bold leading-none absolute -top-8 -left-2 select-none pointer-events-none gradient-text-gold opacity-[0.04]">
                   {s.step}
                 </div>
 
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/15 flex items-center justify-center mb-4 group-hover:bg-accent-500/15 group-hover:shadow-[0_0_16px_rgba(249,115,22,0.1)] transition-all duration-300">
-                    <Icon className="w-5 h-5 text-accent-500" />
+                  <div className="w-14 h-14 rounded-2xl bg-accent-500/[0.08] border border-accent-500/15 flex items-center justify-center mb-5 group-hover:bg-accent-500/15 group-hover:shadow-[0_0_24px_rgba(249,115,22,0.12)] transition-all duration-300">
+                    <Icon className="w-6 h-6 text-accent-400" />
                   </div>
-                  <span className="text-accent-500/60 text-[10px] font-mono tracking-widest mb-2 block">STEP {s.step}</span>
+                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest mb-2 block">STEP {s.step}</span>
                   <h3 className="font-display font-bold text-white text-lg mb-2">{s.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{s.description}</p>
                 </div>
+
+                {/* Connecting dashed line between steps */}
+                {i < steps.length - 1 && (
+                  <div className="absolute top-7 -right-3 w-6 border-t border-dashed border-white/10" />
+                )}
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Mobile: vertical timeline */}
+        <div className="lg:hidden relative">
+          {/* Vertical line */}
+          <div className="absolute left-5 top-0 bottom-0 w-px bg-white/[0.06]" />
+
+          <div className="space-y-10">
+            {steps.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <motion.div
+                  key={s.step}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, ...spring }}
+                  className="relative pl-14"
+                >
+                  {/* Icon on the line */}
+                  <div className="absolute left-0 top-0 w-10 h-10 rounded-xl bg-accent-500/[0.08] border border-accent-500/15 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-accent-400" />
+                  </div>
+
+                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest mb-1 block">STEP {s.step}</span>
+                  <h3 className="font-display font-bold text-white text-lg mb-1">{s.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{s.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

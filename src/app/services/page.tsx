@@ -56,13 +56,12 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ul>
-                  <div className="flex items-center justify-between pt-4 border-t border-navy-700 mt-auto">
-                    <span className="font-bold text-accent-400">{service.startingPrice}</span>
+                  <div className="flex items-center justify-end pt-4 border-t border-navy-700 mt-auto">
                     <Link
                       href="/#booking"
-                      className="inline-flex items-center gap-1 text-sm font-medium text-slate-400 hover:text-accent-400 transition-colors"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-accent-400 hover:text-accent-300 transition-colors"
                     >
-                      Book <ArrowRight className="w-3.5 h-3.5" />
+                      Book Appointment <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -86,13 +85,12 @@ export default function ServicesPage() {
                   <Badge variant="navy" className="self-start mb-2">{service.category}</Badge>
                   <h2 className="text-lg font-bold text-white mb-2">{service.title}</h2>
                   <p className="text-slate-400 text-sm mb-4 flex-1">{service.description}</p>
-                  <div className="flex items-center justify-between pt-3 border-t border-navy-700 mt-auto">
-                    <span className="font-semibold text-slate-300 text-sm">{service.startingPrice}</span>
+                  <div className="flex items-center justify-end pt-3 border-t border-navy-700 mt-auto">
                     <Link
                       href="/#booking"
-                      className="inline-flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-accent-400 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-accent-400 hover:text-accent-300 transition-colors"
                     >
-                      Book <ArrowRight className="w-3 h-3" />
+                      Book Appointment <ArrowRight className="w-3 h-3" />
                     </Link>
                   </div>
                 </div>

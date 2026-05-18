@@ -30,6 +30,17 @@ const config: Config = {
           800: "#9a3412",
           900: "#7c2d12",
         },
+        black: {
+          pure: "#070709",
+          deep: "#0A0A0F",
+          rich: "#0D0D14",
+        },
+        gold: {
+          400: "#D4A843",
+          500: "#C49A2E",
+          600: "#A67C1A",
+          shimmer: "#E8C56A",
+        },
       },
       fontFamily: {
         display: ["'Space Grotesk'", "system-ui", "sans-serif"],

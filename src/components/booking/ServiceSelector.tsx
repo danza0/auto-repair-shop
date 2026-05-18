@@ -38,7 +38,7 @@ export default function ServiceSelector({ selected, onSelect }: Props) {
                       {config?.requiresApproval ? "Consultation" : "Book Now"}
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-500">{service.startingPrice}</p>
+                  <p className="text-xs text-slate-500 line-clamp-1">{service.description}</p>
                 </div>
                 {config && (
                   <div className="flex items-center gap-1 text-xs text-slate-500 flex-shrink-0">
