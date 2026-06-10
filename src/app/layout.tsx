@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingCTA from "@/components/ui/FloatingCTA";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title:
@@ -23,6 +24,7 @@ export default function RootLayout({
         <main className="relative">{children}</main>
         <Footer />
         <FloatingCTA />
+        <Analytics />
       </body>
     </html>
   );
