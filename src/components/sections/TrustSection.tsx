@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Star, Quote, Cpu, Zap, MessageSquare, Globe, Clock, DollarSign, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import type { StatDoc, TestimonialDoc, TrustReasonDoc } from "@/sanity/queries";
 
 /* ── Animated counter ── */
 function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -39,24 +40,29 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   return <span ref={ref} className="tabular-nums">{count}{suffix}</span>;
 }
 
-const bigStats = [
+const DEFAULT_BIG_STATS = [
   { value: 2000, suffix: "+", label: "Vehicles Serviced" },
   { value: 5, suffix: ".0", label: "Google Rating", star: true },
   { value: 100, suffix: "%", label: "Transparent Pricing" },
 ];
 
-const reasons = [
-  { icon: Cpu, title: "Expert Diagnostics", desc: "Professional-grade equipment to find the root cause fast." },
-  { icon: Zap, title: "EV & Hybrid Certified", desc: "Trained and tooled for modern electric vehicles." },
-  { icon: MessageSquare, title: "Clear Communication", desc: "We explain what's wrong before any work begins." },
-  { icon: Globe, title: "Multilingual Service", desc: "English, Spanish, Ukrainian, and Russian available." },
-  { icon: Clock, title: "Efficient Turnaround", desc: "Most services completed promptly with updates." },
-  { icon: DollarSign, title: "Honest Pricing", desc: "Clear repair plans. Fair rates. No hidden fees." },
+const reasonIconMap: Record<string, typeof Cpu> = {
+  cpu: Cpu, zap: Zap, messageSquare: MessageSquare,
+  globe: Globe, clock: Clock, dollarSign: DollarSign,
+};
+
+const DEFAULT_REASONS = [
+  { icon: "cpu", title: "Expert Diagnostics", description: "Professional-grade equipment to find the root cause fast." },
+  { icon: "zap", title: "EV & Hybrid Certified", description: "Trained and tooled for modern electric vehicles." },
+  { icon: "messageSquare", title: "Clear Communication", description: "We explain what's wrong before any work begins." },
+  { icon: "globe", title: "Multilingual Service", description: "English, Spanish, Ukrainian, and Russian available." },
+  { icon: "clock", title: "Efficient Turnaround", description: "Most services completed promptly with updates." },
+  { icon: "dollarSign", title: "Honest Pricing", description: "Clear repair plans. Fair rates. No hidden fees." },
 ];
 
 const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJrXPilcABkVQRozWP4m-OJPs";
 
-const testimonials = [
+const DEFAULT_TESTIMONIALS = [
   { name: "Vasiliy B.", source: "Google", rating: 5, text: "Alex's professional, patient services over many years are greatly appreciated by all of our family. Only place I trust my car with." },
   { name: "Kristi Bair", source: "Google", rating: 5, text: "We have brought several of my family's vehicles here over the last few years. They always seem to fit me in, are professional, good prices and do a great job every time! I will continue to use them in the future!" },
   { name: "Lana", source: "Google", rating: 5, text: "Smart Care Auto is the first stop for any of my auto problems. Alex and his team are amazing! Alex has helped me out with urgent repairs several times already." },
@@ -67,7 +73,7 @@ const testimonials = [
   { name: "Anonymous", source: "Google", rating: 5, text: "The best auto shop in town. Amazing, fantastic, and professional customer care and repair service." },
 ];
 
-function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
+function TestimonialCard({ t }: { t: { name: string; text: string; source: string; rating: number } }) {
   return (
     <div className="flex-shrink-0 w-[340px] sm:w-[380px] p-7 rounded-2xl glass-light border border-white/[0.04] hover:border-accent-500/15 transition-all duration-300 relative overflow-hidden group">
       <Quote className="absolute top-4 right-4 w-8 h-8 text-white/[0.03] rotate-180" />
@@ -92,7 +98,31 @@ function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
-export default function TrustSection() {
+interface TrustSectionProps {
+  stats?: StatDoc[];
+  testimonials?: TestimonialDoc[];
+  reasons?: TrustReasonDoc[];
+}
+
+export default function TrustSection({
+  stats: statsProp,
+  testimonials: testimonialsProp,
+  reasons: reasonsProp,
+}: TrustSectionProps = {}) {
+  const testimonials = testimonialsProp && testimonialsProp.length > 0
+    ? testimonialsProp
+    : DEFAULT_TESTIMONIALS;
+  const reasons = reasonsProp && reasonsProp.length > 0 ? reasonsProp : DEFAULT_REASONS;
+  const bigStats = statsProp && statsProp.filter((s) => s.showInTrustSection !== false).length > 0
+    ? statsProp
+        .filter((s) => s.showInTrustSection !== false)
+        .map((s) => ({
+          value: s.value,
+          suffix: s.suffix ?? "",
+          label: s.label,
+          star: s.showStar,
+        }))
+    : DEFAULT_BIG_STATS;
   const row1 = [...testimonials, ...testimonials];
   const row2 = [...testimonials.slice(3), ...testimonials.slice(0, 3), ...testimonials.slice(3), ...testimonials.slice(0, 3)];
 
@@ -154,24 +184,29 @@ export default function TrustSection() {
           transition={{ duration: 0.5 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8"
         >
-          {reasons.map(({ icon: Icon, title, desc }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06, ...spring }}
-              className="flex items-start gap-4"
-            >
-              <div className="w-10 h-10 rounded-xl bg-accent-500/[0.08] border border-accent-500/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-4.5 h-4.5 text-accent-500" />
-              </div>
-              <div>
-                <h3 className="font-display font-bold text-white text-sm mb-1">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
-              </div>
-            </motion.div>
-          ))}
+          {reasons.map((reason, i) => {
+            const Icon = reasonIconMap[reason.icon] ?? Cpu;
+            const title = reason.title;
+            const description = "description" in reason ? reason.description : "";
+            return (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06, ...spring }}
+                className="flex items-start gap-4"
+              >
+                <div className="w-10 h-10 rounded-xl bg-accent-500/[0.08] border border-accent-500/10 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-4.5 h-4.5 text-accent-500" />
+                </div>
+                <div>
+                  <h3 className="font-display font-bold text-white text-sm mb-1">{title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
 

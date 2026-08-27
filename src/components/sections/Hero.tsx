@@ -7,6 +7,13 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Logo from "@/components/ui/Logo";
 import HeroScene from "@/components/3d/HeroScene";
+import type { HeroContent, SiteSettings, StatDoc } from "@/sanity/queries";
+
+const trustBadgeIcons: Record<string, typeof Zap> = {
+  zap: Zap,
+  search: Search,
+  messageSquare: MessageSquare,
+};
 
 /* ── Animated counter ── */
 function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -42,22 +49,51 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   return <span ref={ref} className="tabular-nums">{count}{suffix}</span>;
 }
 
-const stats = [
+const DEFAULT_STATS = [
   { value: 2000, suffix: "+", label: "Vehicles Serviced" },
   { value: 5, suffix: ".0", label: "Google Rating" },
   { value: 3, suffix: "", label: "Languages Spoken" },
   { value: 100, suffix: "%", label: "Transparent Pricing" },
 ];
 
+const DEFAULT_TRUST_BADGES = [
+  { icon: "zap", label: "EV & Hybrid Certified" },
+  { icon: "search", label: "Factory-Level Diagnostics" },
+  { icon: "messageSquare", label: "English · Spanish · Ukrainian · Russian" },
+];
+
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
-export default function Hero() {
+interface HeroProps {
+  hero?: HeroContent | null;
+  stats?: StatDoc[];
+  siteSettings?: SiteSettings | null;
+}
+
+export default function Hero({ hero, stats, siteSettings }: HeroProps = {}) {
+  const statusBadge = hero?.statusBadge ?? "Now Accepting Appointments · Spanaway, WA";
+  const line1 = hero?.headlineLine1 ?? "SmartCare";
+  const line2 = hero?.headlineLine2 ?? "Auto";
+  const line3 = hero?.headlineLine3 ?? "Repair.";
+  const subheadline = hero?.subheadline ?? "Expert diagnostics, EV & hybrid service, and honest pricing. Professional-grade equipment. Multilingual team.";
+  const primaryCtaLabel = hero?.primaryCtaLabel ?? "Book Appointment";
+  const secondaryCtaLabel = hero?.secondaryCtaLabel ?? "Call Now";
+  const trustBadges = hero?.trustBadges?.length ? hero.trustBadges : DEFAULT_TRUST_BADGES;
+  const bgImage = hero?.backgroundImageUrl ?? "/hero-bg.jpg";
+  const phoneHref = `tel:${siteSettings?.phoneHref ?? "+12532143774"}`;
+  const heroStats = (stats?.filter((s) => s.showInHero !== false).length ?? 0) > 0
+    ? stats!.filter((s) => s.showInHero !== false).map((s) => ({
+        value: s.value,
+        suffix: s.suffix ?? "",
+        label: s.label,
+      }))
+    : DEFAULT_STATS;
   return (
     <section className="relative min-h-[100dvh] flex flex-col overflow-hidden">
       {/* BG photo + tint overlays */}
       <div className="absolute inset-0">
         <Image
-          src="/hero-bg.jpg"
+          src={bgImage}
           alt=""
           fill
           priority
@@ -97,7 +133,7 @@ export default function Hero() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
                 </span>
-                <span className="text-slate-400 text-sm tracking-wide">Now Accepting Appointments &middot; Spanaway, WA</span>
+                <span className="text-slate-400 text-sm tracking-wide">{statusBadge}</span>
               </motion.div>
 
               {/* Headline */}
@@ -108,7 +144,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.2 }}
                 >
-                  SmartCare
+                  {line1}
                 </motion.span>
                 <motion.span
                   className="block text-5xl sm:text-6xl lg:text-[72px] xl:text-[80px] text-white leading-[0.95] mt-2"
@@ -116,7 +152,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.35 }}
                 >
-                  Auto
+                  {line2}
                 </motion.span>
                 <motion.span
                   className="block text-5xl sm:text-6xl lg:text-[72px] xl:text-[80px] text-white leading-[0.95] mt-2"
@@ -124,7 +160,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...spring, delay: 0.5 }}
                 >
-                  Repair.
+                  {line3}
                 </motion.span>
               </h1>
 
@@ -135,7 +171,7 @@ export default function Hero() {
                 transition={{ ...spring, delay: 0.65 }}
                 className="text-lg text-slate-400 leading-relaxed mb-10 max-w-md"
               >
-                Expert diagnostics, EV & hybrid service, and honest pricing. Professional-grade equipment. Multilingual team.
+                {subheadline}
               </motion.p>
 
               {/* CTAs */}
@@ -149,15 +185,15 @@ export default function Hero() {
                   href="/book"
                   className="group inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full bg-accent-500 text-white hover:bg-accent-400 text-base px-8 py-4 min-h-[48px] transition-all duration-200 shadow-[0_0_30px_rgba(249,115,22,0.25)] hover:shadow-[0_0_50px_rgba(249,115,22,0.4)] active:scale-[0.97]"
                 >
-                  Book Appointment
+                  {primaryCtaLabel}
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
                 </Link>
                 <a
-                  href="tel:+12532143774"
+                  href={phoneHref}
                   className="inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full border border-white/15 text-white hover:border-accent-500/50 hover:text-accent-400 text-base px-8 py-4 min-h-[48px] transition-all duration-200"
                 >
                   <Phone className="w-4 h-4" />
-                  Call Now
+                  {secondaryCtaLabel}
                 </a>
               </motion.div>
 
@@ -168,18 +204,18 @@ export default function Hero() {
                 transition={{ ...spring, delay: 0.95 }}
                 className="flex flex-wrap gap-3"
               >
-                <div className="glass border border-white/5 border-t-white/10 rounded-2xl px-4 py-2.5 inline-flex items-center gap-2">
-                  <Zap className="w-3.5 h-3.5 text-accent-500" />
-                  <span className="text-white text-xs font-medium">EV & Hybrid Certified</span>
-                </div>
-                <div className="glass border border-white/5 border-t-white/10 rounded-2xl px-4 py-2.5 inline-flex items-center gap-2">
-                  <Search className="w-3.5 h-3.5 text-accent-500" />
-                  <span className="text-white text-xs font-medium">Factory-Level Diagnostics</span>
-                </div>
-                <div className="glass border border-white/5 border-t-white/10 rounded-2xl px-4 py-2.5 inline-flex items-center gap-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-accent-500" />
-                  <span className="text-white text-xs font-medium">English &middot; Spanish &middot; Ukrainian &middot; Russian</span>
-                </div>
+                {trustBadges.map((badge) => {
+                  const Icon = trustBadgeIcons[badge.icon] ?? Zap;
+                  return (
+                    <div
+                      key={badge.label}
+                      className="glass border border-white/5 border-t-white/10 rounded-2xl px-4 py-2.5 inline-flex items-center gap-2"
+                    >
+                      <Icon className="w-3.5 h-3.5 text-accent-500" />
+                      <span className="text-white text-xs font-medium">{badge.label}</span>
+                    </div>
+                  );
+                })}
               </motion.div>
             </div>
 
@@ -248,7 +284,7 @@ export default function Hero() {
       >
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/5">
-            {stats.map(({ value, suffix, label }, i) => (
+            {heroStats.map(({ value, suffix, label }, i) => (
               <motion.div
                 key={label}
                 initial={{ opacity: 0, y: 20 }}

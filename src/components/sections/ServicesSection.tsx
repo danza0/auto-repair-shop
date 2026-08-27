@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { services } from "@/config/services";
+import { services as defaultServices } from "@/config/services";
+import type { ServiceDoc, SpecialtyDoc } from "@/sanity/queries";
 import {
   ArrowRight,
   Cpu,
@@ -23,23 +24,23 @@ const iconMap: Record<string, React.ElementType> = {
   thermometer: Thermometer, "git-branch": GitBranch,
 };
 
-const specialties = [
+const DEFAULT_SPECIALTIES = [
   {
-    icon: BatteryCharging,
+    icon: "battery-charging",
     tag: "EV & Hybrid",
     title: "Electric & Hybrid Vehicle Service",
     description: "Our focus. HV battery diagnostics, regenerative brakes, inverters, and drive-motor service — certified equipment for modern EVs and hybrids.",
     features: ["HV battery diagnostics", "Regen brake service", "Inverter & motor checks", "Thermal system service"],
   },
   {
-    icon: Code,
+    icon: "code",
     tag: "Programming",
     title: "ECU & Module Programming",
     description: "ECU, key fob, and control-module programming for any make or model. Factory-level tools, no dealership markup.",
     features: ["ECU / PCM programming", "Key fob & immobilizer setup", "Module calibration", "Software updates"],
   },
   {
-    icon: Cpu,
+    icon: "cpu",
     tag: "Diagnostics",
     title: "Advanced Computer Diagnostics",
     description: "Professional-grade scan tools to pinpoint issues other shops miss. ECU coding, module resets, and factory-level fault tracing.",
@@ -62,10 +63,24 @@ const item = {
   show: { opacity: 1, y: 0, transition: spring },
 };
 
-export default function ServicesSection() {
-  const featured = services.filter((s) => s.featured);
-  const featuredMain = featured[2]; // BEV/Hybrids as the featured large card
-  const regularCards = featured.filter((s) => s.slug !== featuredMain.slug);
+interface ServicesSectionProps {
+  services?: ServiceDoc[];
+  specialties?: SpecialtyDoc[];
+}
+
+export default function ServicesSection({
+  services: servicesProp,
+  specialties: specialtiesProp,
+}: ServicesSectionProps = {}) {
+  const serviceList = servicesProp && servicesProp.length > 0 ? servicesProp : defaultServices;
+  const specialtyList = specialtiesProp && specialtiesProp.length > 0 ? specialtiesProp : DEFAULT_SPECIALTIES;
+  const featured = serviceList.filter((s) => s.featured);
+  // Pick a featured EV/Hybrid card as the big one, else the first featured.
+  const featuredMain =
+    featured.find((s) => /ev|hybrid|bev/i.test(s.category || s.title)) ??
+    featured[0] ??
+    serviceList[0];
+  const regularCards = featured.filter((s) => s.slug !== featuredMain?.slug);
 
   return (
     <section id="services" className="relative py-28 md:py-36 bg-black-pure overflow-hidden">
@@ -109,33 +124,38 @@ export default function ServicesSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5"
         >
           {/* Featured large card — col-span-5 */}
-          <motion.div variants={item} className="lg:col-span-5">
-            <TiltCard className="h-full">
-              <div className="group relative h-full rounded-2xl border border-accent-500/15 bg-gradient-to-br from-accent-500/[0.08] to-transparent overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-500/60 via-accent-400/40 to-transparent" />
-                <div className="relative p-8">
-                  <div className="w-16 h-16 rounded-2xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center mb-6 group-hover:bg-accent-500/20 group-hover:shadow-[0_0_24px_rgba(249,115,22,0.15)] transition-all duration-300">
-                    <BatteryCharging className="w-7 h-7 text-accent-500" />
+          {featuredMain && (
+            <motion.div variants={item} className="lg:col-span-5">
+              <TiltCard className="h-full">
+                <div className="group relative h-full rounded-2xl border border-accent-500/15 bg-gradient-to-br from-accent-500/[0.08] to-transparent overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-500/60 via-accent-400/40 to-transparent" />
+                  <div className="relative p-8">
+                    <div className="w-16 h-16 rounded-2xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center mb-6 group-hover:bg-accent-500/20 group-hover:shadow-[0_0_24px_rgba(249,115,22,0.15)] transition-all duration-300">
+                      {(() => {
+                        const FeaturedIcon = iconMap[featuredMain.icon] ?? BatteryCharging;
+                        return <FeaturedIcon className="w-7 h-7 text-accent-500" />;
+                      })()}
+                    </div>
+                    <span className="text-accent-500/50 text-[10px] font-mono tracking-widest uppercase">{featuredMain.category}</span>
+                    <h3 className="text-2xl font-display font-bold text-white mt-2 mb-3">{featuredMain.title}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6">{featuredMain.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {(featuredMain.details ?? []).map((d) => (
+                        <span key={d} className="text-[11px] font-mono px-3 py-1.5 rounded-full border border-white/[0.06] bg-white/[0.02] text-slate-400">{d}</span>
+                      ))}
+                    </div>
+                    <Link
+                      href={`/book?service=${featuredMain.slug}`}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 hover:text-accent-300 transition-colors"
+                    >
+                      Book This Service
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                    </Link>
                   </div>
-                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest uppercase">{featuredMain.category}</span>
-                  <h3 className="text-2xl font-display font-bold text-white mt-2 mb-3">{featuredMain.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6">{featuredMain.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {featuredMain.details.map((d) => (
-                      <span key={d} className="text-[11px] font-mono px-3 py-1.5 rounded-full border border-white/[0.06] bg-white/[0.02] text-slate-400">{d}</span>
-                    ))}
-                  </div>
-                  <Link
-                    href={`/book?service=${featuredMain.slug}`}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 hover:text-accent-300 transition-colors"
-                  >
-                    Book This Service
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                  </Link>
                 </div>
-              </div>
-            </TiltCard>
-          </motion.div>
+              </TiltCard>
+            </motion.div>
+          )}
 
           {/* Regular cards — remaining 5 */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
@@ -184,8 +204,9 @@ export default function ServicesSection() {
           viewport={{ once: true, margin: "-80px" }}
           className="space-y-4"
         >
-          {specialties.map((specialty) => {
-            const Icon = specialty.icon;
+          {specialtyList.map((specialty) => {
+            const Icon = iconMap[specialty.icon] ?? BatteryCharging;
+            const features = specialty.features ?? [];
             return (
               <motion.div
                 key={specialty.tag}
@@ -210,7 +231,7 @@ export default function ServicesSection() {
                   {/* Right: feature tags + CTA */}
                   <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center gap-4 lg:flex-shrink-0">
                     <div className="flex flex-wrap gap-2">
-                      {specialty.features.slice(0, 3).map((f) => (
+                      {features.slice(0, 3).map((f) => (
                         <span key={f} className="text-[10px] font-mono px-3 py-1.5 rounded-full border border-white/[0.06] bg-white/[0.02] text-slate-500">{f}</span>
                       ))}
                     </div>

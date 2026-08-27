@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { X, Camera, MapPin, ArrowRight, Calendar, Phone } from "lucide-react";
+import type { GalleryPhotoDoc, SiteSettings } from "@/sanity/queries";
 
 type Photo = {
   src: string;
@@ -14,7 +15,14 @@ type Photo = {
   span: string;
 };
 
-const photos: Photo[] = [
+const SIZE_TO_SPAN: Record<GalleryPhotoDoc["size"], string> = {
+  large: "col-span-1 row-span-1 sm:col-span-2 sm:row-span-2",
+  tall: "col-span-1 row-span-1 sm:col-span-1 sm:row-span-2",
+  wide: "col-span-1 row-span-1 sm:col-span-2 sm:row-span-1",
+  small: "col-span-1 row-span-1",
+};
+
+const DEFAULT_PHOTOS: Photo[] = [
   {
     src: "/gallery/IMG_1277.jpg",
     alt: "SmartCare technician working under the hood of a Mercedes in the shop",
@@ -68,7 +76,28 @@ const photos: Photo[] = [
 
 const spring = { type: "spring" as const, stiffness: 120, damping: 20 };
 
-export default function GallerySection() {
+interface GallerySectionProps {
+  photos?: GalleryPhotoDoc[];
+  siteSettings?: SiteSettings | null;
+}
+
+export default function GallerySection({
+  photos: photosProp,
+  siteSettings,
+}: GallerySectionProps = {}) {
+  const photos: Photo[] = photosProp && photosProp.length > 0
+    ? photosProp.map((p) => ({
+        src: p.imageUrl,
+        alt: p.alt,
+        caption: p.caption,
+        tag: p.tag,
+        span: SIZE_TO_SPAN[p.size] ?? SIZE_TO_SPAN.small,
+      }))
+    : DEFAULT_PHOTOS;
+  const address = siteSettings?.address ?? "108 163rd St S";
+  const cityState = siteSettings?.cityStateZip ?? "Spanaway, WA";
+  const mapsUrl = siteSettings?.mapsUrl ?? "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387";
+  const phoneHref = `tel:${siteSettings?.phoneHref ?? "+12532143774"}`;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // Keyboard navigation for lightbox
@@ -209,7 +238,7 @@ export default function GallerySection() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <a
-                  href="tel:+12532143774"
+                  href={phoneHref}
                   className="inline-flex items-center justify-center gap-2 font-display font-semibold rounded-full border border-white/15 text-white hover:border-accent-500/40 hover:text-accent-300 text-sm px-5 py-3 transition-all duration-200"
                 >
                   <Phone className="w-4 h-4" />
@@ -230,11 +259,11 @@ export default function GallerySection() {
         >
           <div className="flex items-center gap-2">
             <MapPin className="w-3.5 h-3.5 text-accent-500/70" />
-            <span>108 163rd St S, Spanaway, WA</span>
+            <span>{address}, {cityState.replace(/, \d.*$/, "")}</span>
           </div>
           <span className="hidden sm:inline text-slate-700">·</span>
           <a
-            href="https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387"
+            href={mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent-400 hover:text-accent-300 transition-colors font-medium"

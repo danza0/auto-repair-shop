@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import FloatingCTA from "@/components/ui/FloatingCTA";
+import { getSiteSettings } from "@/sanity/queries";
 
-export const metadata: Metadata = {
-  title:
-    "SmartCare Auto Repair — EV & Hybrid Specialists | Spanaway, WA",
-  description:
-    "SmartCare Auto Repair in Spanaway, WA — EV & hybrid specialists. Diagnostics, programming, HV battery service, electronics, and maintenance. Call (253) 214-3774.",
-};
+/**
+ * Root layout is intentionally minimal — the site chrome (Navbar/Footer)
+ * lives in `(site)/layout.tsx` so the /studio route can render bare.
+ * Metadata comes from Sanity when configured, else the hardcoded defaults.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  return {
+    title:
+      settings?.metaTitle ??
+      "SmartCare Auto Repair — EV & Hybrid Specialists | Spanaway, WA",
+    description:
+      settings?.metaDescription ??
+      "SmartCare Auto Repair in Spanaway, WA — EV & hybrid specialists. Diagnostics, programming, HV battery service, electronics, and maintenance. Call (253) 214-3774.",
+  };
+}
 
 export default function RootLayout({
   children,
@@ -18,12 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="antialiased">
-      <body className="bg-black-pure text-white">
-        <Navbar />
-        <main className="relative">{children}</main>
-        <Footer />
-        <FloatingCTA />
-      </body>
+      <body className="bg-black-pure text-white">{children}</body>
     </html>
   );
 }

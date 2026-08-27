@@ -14,14 +14,7 @@ import {
   Zap,
   Calendar,
 } from "lucide-react";
-
-const contactDetails = [
-  { icon: Phone, label: "Phone", value: "(253) 214-3774", href: "tel:+12532143774" },
-  { icon: Mail, label: "Email", value: "smartcareautorepair@gmail.com", href: "mailto:smartcareautorepair@gmail.com" },
-  { icon: MapPin, label: "Address", value: "108 163rd St S, Spanaway, WA 98387", href: "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387" },
-  { icon: Clock, label: "Hours", value: "Monday – Friday, 9 AM – 5 PM", href: null },
-  { icon: Globe, label: "Languages", value: "English · Spanish · Ukrainian · Russian", href: null },
-];
+import type { SiteSettings } from "@/sanity/queries";
 
 const promises = [
   { icon: Star, text: "5.0 Google rating", sub: "Verified customer reviews" },
@@ -29,7 +22,27 @@ const promises = [
   { icon: Zap, text: "We confirm in 1 business day", sub: "Often within hours" },
 ];
 
-export default function BookingContact() {
+interface BookingContactProps {
+  siteSettings?: SiteSettings | null;
+}
+
+export default function BookingContact({ siteSettings }: BookingContactProps = {}) {
+  const phone = siteSettings?.phone ?? "(253) 214-3774";
+  const phoneHref = `tel:${siteSettings?.phoneHref ?? "+12532143774"}`;
+  const email = siteSettings?.email ?? "smartcareautorepair@gmail.com";
+  const address = siteSettings?.address ?? "108 163rd St S";
+  const cityStateZip = siteSettings?.cityStateZip ?? "Spanaway, WA 98387";
+  const mapsUrl = siteSettings?.mapsUrl ?? "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387";
+  const hours = siteSettings?.hours ?? "Monday – Friday, 9 AM – 5 PM";
+  const languages = siteSettings?.languages ?? "English · Spanish · Ukrainian · Russian";
+
+  const contactDetails = [
+    { icon: Phone, label: "Phone", value: phone, href: phoneHref },
+    { icon: Mail, label: "Email", value: email, href: `mailto:${email}` },
+    { icon: MapPin, label: "Address", value: `${address}, ${cityStateZip}`, href: mapsUrl },
+    { icon: Clock, label: "Hours", value: hours, href: null },
+    { icon: Globe, label: "Languages", value: languages, href: null },
+  ];
   return (
     <section id="booking" className="relative py-28 md:py-36 bg-black-deep overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent-500/[0.04] rounded-full blur-[120px] pointer-events-none" />

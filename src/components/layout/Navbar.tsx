@@ -6,6 +6,7 @@ import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Logo from "@/components/ui/Logo";
+import type { SiteSettings } from "@/sanity/queries";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -15,7 +16,15 @@ const navLinks = [
   { href: "/#contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  siteSettings?: SiteSettings | null;
+}
+
+export default function Navbar({ siteSettings }: NavbarProps = {}) {
+  const shortName = siteSettings?.shortName ?? "SmartCare";
+  const tagline = siteSettings?.tagline ?? "Auto Repair";
+  const phone = siteSettings?.phone ?? "(253) 214-3774";
+  const phoneHref = `tel:${siteSettings?.phoneHref ?? "+12532143774"}`;
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -45,8 +54,8 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group">
             <Logo className="w-8 h-8 drop-shadow-[0_0_8px_rgba(249,115,22,0.3)] group-hover:drop-shadow-[0_0_12px_rgba(249,115,22,0.5)] transition-all duration-300" />
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-white text-sm font-display tracking-wide">SmartCare</span>
-              <span className="text-[9px] text-slate-500 tracking-[0.2em] uppercase">Auto Repair</span>
+              <span className="font-bold text-white text-sm font-display tracking-wide">{shortName}</span>
+              <span className="text-[9px] text-slate-500 tracking-[0.2em] uppercase">{tagline}</span>
             </div>
           </Link>
 
@@ -66,11 +75,11 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="tel:+12532143774"
+              href={phoneHref}
               className="flex items-center gap-2 text-[13px] font-medium text-slate-400 hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
-              (253) 214-3774
+              {phone}
             </a>
             <Link
               href="/book"
@@ -138,11 +147,11 @@ export default function Navbar() {
                 className="mt-8 flex flex-col items-center gap-4"
               >
                 <a
-                  href="tel:+12532143774"
+                  href={phoneHref}
                   className="flex items-center gap-2 text-accent-400 text-lg font-medium"
                 >
                   <Phone className="w-5 h-5" />
-                  (253) 214-3774
+                  {phone}
                 </a>
                 <Link
                   href="/book"

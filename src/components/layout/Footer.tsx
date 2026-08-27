@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import type { SiteSettings } from "@/sanity/queries";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -9,7 +10,25 @@ const navLinks = [
   { label: "Contact", href: "/#contact" },
 ];
 
-export default function Footer() {
+interface FooterProps {
+  siteSettings?: SiteSettings | null;
+}
+
+export default function Footer({ siteSettings }: FooterProps = {}) {
+  const shortName = siteSettings?.shortName ?? "SmartCare";
+  const businessName = siteSettings?.businessName ?? "SmartCare Auto Repair";
+  const tagline = siteSettings?.tagline ?? "Auto Repair";
+  const description =
+    siteSettings?.footerDescription ??
+    "EV & hybrid specialists in Spanaway, WA — diagnostics, programming, electronics, HV battery service, and maintenance.";
+  const phone = siteSettings?.phone ?? "(253) 214-3774";
+  const phoneHref = `tel:${siteSettings?.phoneHref ?? "+12532143774"}`;
+  const email = siteSettings?.email ?? "smartcareautorepair@gmail.com";
+  const address = siteSettings?.address ?? "108 163rd St S";
+  const cityStateZip = siteSettings?.cityStateZip ?? "Spanaway, WA 98387";
+  const mapsUrl = siteSettings?.mapsUrl ?? "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387";
+  const hours = siteSettings?.hours ?? "Mon – Fri, 9 AM – 5 PM";
+  const languages = siteSettings?.languages ?? "EN / ES / UK / RU";
   return (
     <footer className="bg-black-pure text-slate-500 relative">
       <div className="line-accent" />
@@ -22,12 +41,12 @@ export default function Footer() {
               <div className="absolute -left-4 -top-4 w-20 h-20 bg-accent-500/[0.06] rounded-full blur-[40px] pointer-events-none" />
               <Logo className="w-10 h-10 relative" />
               <div className="leading-none relative">
-                <span className="font-bold text-white text-sm font-display tracking-wide block">SmartCare</span>
-                <span className="text-[10px] text-slate-600 tracking-[0.2em] uppercase">Auto Repair</span>
+                <span className="font-bold text-white text-sm font-display tracking-wide block">{shortName}</span>
+                <span className="text-[10px] text-slate-600 tracking-[0.2em] uppercase">{tagline}</span>
               </div>
             </div>
             <p className="text-sm leading-relaxed text-slate-500 max-w-xs">
-              EV & hybrid specialists in Spanaway, WA — diagnostics, programming, electronics, HV battery service, and maintenance.
+              {description}
             </p>
           </div>
 
@@ -47,19 +66,19 @@ export default function Footer() {
           <div>
             <h3 className="font-display font-semibold text-white mb-5 text-xs tracking-widest uppercase">Contact</h3>
             <div className="space-y-3 text-sm">
-              <a href="tel:+12532143774" className="flex items-center gap-2.5 hover:text-white transition-colors">
+              <a href={phoneHref} className="flex items-center gap-2.5 hover:text-white transition-colors">
                 <Phone className="w-3.5 h-3.5 text-accent-500/70 flex-shrink-0" />
-                (253) 214-3774
+                {phone}
               </a>
-              <a href="mailto:smartcareautorepair@gmail.com" className="flex items-center gap-2.5 hover:text-white transition-colors">
+              <a href={`mailto:${email}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
                 <Mail className="w-3.5 h-3.5 text-accent-500/70 flex-shrink-0" />
-                smartcareautorepair@gmail.com
+                {email}
               </a>
-              <a href="https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387" target="_blank" rel="noopener noreferrer" className="flex items-start gap-2.5 hover:text-white transition-colors">
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2.5 hover:text-white transition-colors">
                 <MapPin className="w-3.5 h-3.5 text-accent-500/70 flex-shrink-0 mt-0.5" />
-                <span>108 163rd St S<br />Spanaway, WA 98387</span>
+                <span>{address}<br />{cityStateZip}</span>
               </a>
-              <p className="text-slate-600 text-xs pt-2">Mon &ndash; Fri, 9 AM &ndash; 5 PM &middot; EN / ES / UK / RU</p>
+              <p className="text-slate-600 text-xs pt-2">{hours} &middot; {languages}</p>
             </div>
             <div className="mt-6">
               <Link
@@ -74,7 +93,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-white/5 mt-14 pt-8 text-center text-sm text-slate-700">
-          <p>&copy; {new Date().getFullYear()} SmartCare Auto Repair. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {businessName}. All rights reserved.</p>
         </div>
       </div>
     </footer>

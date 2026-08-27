@@ -3,18 +3,32 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { CalendarCheck, Search, Car, Wrench, CheckCircle } from "lucide-react";
+import type { ProcessStepDoc } from "@/sanity/queries";
 
-const steps = [
-  { icon: CalendarCheck, step: "01", title: "Request Appointment", description: "Fill out our quick booking form online or give us a call. We confirm within 1 business day." },
-  { icon: Search, step: "02", title: "Discuss Your Needs", description: "We discuss your vehicle's symptoms and confirm what service or diagnostics are needed." },
-  { icon: Car, step: "03", title: "Drop Off Your Vehicle", description: "Drop your vehicle off at our shop at 108 163rd St S, Spanaway, WA." },
-  { icon: Wrench, step: "04", title: "Expert Repair", description: "Our technicians use professional-grade equipment to diagnose and complete your repairs." },
-  { icon: CheckCircle, step: "05", title: "Drive Away Happy", description: "We walk you through what was done, answer questions, and get you driving again." },
+const processIconMap: Record<string, typeof CalendarCheck> = {
+  calendarCheck: CalendarCheck,
+  search: Search,
+  car: Car,
+  wrench: Wrench,
+  checkCircle: CheckCircle,
+};
+
+const DEFAULT_STEPS = [
+  { icon: "calendarCheck", stepNumber: "01", title: "Request Appointment", description: "Fill out our quick booking form online or give us a call. We confirm within 1 business day." },
+  { icon: "search", stepNumber: "02", title: "Discuss Your Needs", description: "We discuss your vehicle's symptoms and confirm what service or diagnostics are needed." },
+  { icon: "car", stepNumber: "03", title: "Drop Off Your Vehicle", description: "Drop your vehicle off at our shop at 108 163rd St S, Spanaway, WA." },
+  { icon: "wrench", stepNumber: "04", title: "Expert Repair", description: "Our technicians use professional-grade equipment to diagnose and complete your repairs." },
+  { icon: "checkCircle", stepNumber: "05", title: "Drive Away Happy", description: "We walk you through what was done, answer questions, and get you driving again." },
 ];
 
 const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
-export default function ProcessSection() {
+interface ProcessSectionProps {
+  steps?: ProcessStepDoc[];
+}
+
+export default function ProcessSection({ steps: stepsProp }: ProcessSectionProps = {}) {
+  const steps = stepsProp && stepsProp.length > 0 ? stepsProp : DEFAULT_STEPS;
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const lineWidth = useTransform(scrollYProgress, [0.15, 0.55], ["0%", "100%"]);
@@ -56,10 +70,10 @@ export default function ProcessSection() {
         {/* Desktop: horizontal steps */}
         <div className="hidden lg:grid grid-cols-5 gap-6">
           {steps.map((s, i) => {
-            const Icon = s.icon;
+            const Icon = processIconMap[s.icon] ?? CalendarCheck;
             return (
               <motion.div
-                key={s.step}
+                key={s.stepNumber}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
@@ -68,14 +82,14 @@ export default function ProcessSection() {
               >
                 {/* Giant step number watermark */}
                 <div className="text-[140px] font-display font-bold leading-none absolute -top-8 -left-2 select-none pointer-events-none gradient-text-gold opacity-[0.04]">
-                  {s.step}
+                  {s.stepNumber}
                 </div>
 
                 <div className="relative">
                   <div className="w-14 h-14 rounded-2xl bg-accent-500/[0.08] border border-accent-500/15 flex items-center justify-center mb-5 group-hover:bg-accent-500/15 group-hover:shadow-[0_0_24px_rgba(249,115,22,0.12)] transition-all duration-300">
                     <Icon className="w-6 h-6 text-accent-400" />
                   </div>
-                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest mb-2 block">STEP {s.step}</span>
+                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest mb-2 block">STEP {s.stepNumber}</span>
                   <h3 className="font-display font-bold text-white text-lg mb-2">{s.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{s.description}</p>
                 </div>
@@ -96,10 +110,10 @@ export default function ProcessSection() {
 
           <div className="space-y-10">
             {steps.map((s, i) => {
-              const Icon = s.icon;
+              const Icon = processIconMap[s.icon] ?? CalendarCheck;
               return (
                 <motion.div
-                  key={s.step}
+                  key={s.stepNumber}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -111,7 +125,7 @@ export default function ProcessSection() {
                     <Icon className="w-4 h-4 text-accent-400" />
                   </div>
 
-                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest mb-1 block">STEP {s.step}</span>
+                  <span className="text-accent-500/50 text-[10px] font-mono tracking-widest mb-1 block">STEP {s.stepNumber}</span>
                   <h3 className="font-display font-bold text-white text-lg mb-1">{s.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{s.description}</p>
                 </motion.div>
