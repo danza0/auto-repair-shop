@@ -9,14 +9,18 @@ import {
   Code,
   BatteryCharging,
   Monitor,
-  Truck,
   Wrench,
+  Zap,
+  CircleDot,
+  Thermometer,
+  GitBranch,
 } from "lucide-react";
 import TiltCard from "@/components/ui/TiltCard";
 
 const iconMap: Record<string, React.ElementType> = {
   cpu: Cpu, code: Code, "battery-charging": BatteryCharging, monitor: Monitor,
-  truck: Truck, wrench: Wrench,
+  wrench: Wrench, zap: Zap, "circle-dot": CircleDot,
+  thermometer: Thermometer, "git-branch": GitBranch,
 };
 
 const specialties = [
@@ -24,21 +28,21 @@ const specialties = [
     icon: BatteryCharging,
     tag: "EV & Hybrid",
     title: "Electric & Hybrid Vehicle Service",
-    description: "From battery diagnostics to high-voltage system repair, certified to handle modern EVs and hybrids.",
-    features: ["Battery health diagnostics", "High-voltage system repair", "Charging system service", "Hybrid drive maintenance"],
+    description: "Our focus. HV battery diagnostics, regenerative brakes, inverters, and drive-motor service — certified equipment for modern EVs and hybrids.",
+    features: ["HV battery diagnostics", "Regen brake service", "Inverter & motor checks", "Thermal system service"],
   },
   {
-    icon: Truck,
-    tag: "Diesel",
-    title: "Diesel Engine Specialists",
-    description: "DPF issues, injector problems, turbo diagnostics — professional equipment for trucks and heavy-duty vehicles.",
-    features: ["DPF cleaning & replacement", "Injector diagnostics", "Turbo system service", "Engine performance tuning"],
+    icon: Code,
+    tag: "Programming",
+    title: "ECU & Module Programming",
+    description: "ECU, key fob, and control-module programming for any make or model. Factory-level tools, no dealership markup.",
+    features: ["ECU / PCM programming", "Key fob & immobilizer setup", "Module calibration", "Software updates"],
   },
   {
     icon: Cpu,
     tag: "Diagnostics",
     title: "Advanced Computer Diagnostics",
-    description: "Professional-grade scan tools to pinpoint issues other shops miss. ECU programming, module coding, and system resets.",
+    description: "Professional-grade scan tools to pinpoint issues other shops miss. ECU coding, module resets, and factory-level fault tracing.",
     features: ["OBD-II & factory-level scans", "ECU programming & coding", "Module reset & calibration", "Electrical fault tracing"],
   },
 ];

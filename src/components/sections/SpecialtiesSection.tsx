@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BatteryCharging, Truck, Cpu, ArrowRight } from "lucide-react";
+import { BatteryCharging, Code, Cpu, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const specialties = [
@@ -9,21 +9,21 @@ const specialties = [
     icon: BatteryCharging,
     tag: "EV & Hybrid",
     title: "Electric & Hybrid Vehicle Service",
-    description: "From battery diagnostics to high-voltage system repair, we're equipped and certified to handle modern electric and hybrid vehicles. No need for the dealer — get the same expertise at fair prices.",
-    features: ["Battery health diagnostics", "High-voltage system repair", "Charging system service", "Hybrid drive maintenance"],
+    description: "Our focus. From HV battery diagnostics to regenerative brakes and inverter service — certified equipment for modern EVs and hybrids. No need for the dealer.",
+    features: ["HV battery diagnostics", "Regen brake service", "Charging system service", "Hybrid drive maintenance"],
   },
   {
-    icon: Truck,
-    tag: "Diesel",
-    title: "Diesel Engine Specialists",
-    description: "DPF issues, injector problems, turbo diagnostics — we handle all diesel engine services with professional equipment and real experience on trucks and heavy-duty vehicles.",
-    features: ["DPF cleaning & replacement", "Injector diagnostics", "Turbo system service", "Engine performance tuning"],
+    icon: Code,
+    tag: "Programming",
+    title: "ECU & Module Programming",
+    description: "ECU, key fob, and control-module programming for any make or model. Factory-level tools, done right the first time, no dealership markup.",
+    features: ["ECU / PCM programming", "Key fob & immobilizer setup", "Module calibration", "Software updates"],
   },
   {
     icon: Cpu,
     tag: "Diagnostics",
     title: "Advanced Computer Diagnostics",
-    description: "Our shop runs professional-grade scan tools and diagnostic software to pinpoint issues other shops miss. ECU programming, module coding, and system resets — done right the first time.",
+    description: "Our shop runs professional-grade scan tools and diagnostic software to pinpoint issues other shops miss. Module coding and system resets — done right the first time.",
     features: ["OBD-II & factory-level scans", "ECU programming & coding", "Module reset & calibration", "Electrical fault tracing"],
   },
 ];

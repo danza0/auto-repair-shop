@@ -5,11 +5,9 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   { name: "Carlos M.", vehicle: "2021 Toyota Camry Hybrid", rating: 5, text: "They diagnosed my hybrid system issue when two other shops couldn't figure it out. Professional, fast, and they explained everything clearly in Spanish." },
-  { name: "James T.", vehicle: "2020 Ford F-250 Diesel", rating: 5, text: "Best diesel shop I've found in the area. They know their stuff — diagnosed a tricky injector issue and had me back on the road same week. Fair price too." },
   { name: "Natasha V.", vehicle: "2019 Chevrolet Bolt EV", rating: 5, text: "Finally a shop that actually knows EVs. They handled a battery warning code and a programming issue for my Bolt without any issues. Very happy with SmartCare." },
   { name: "David K.", vehicle: "2018 BMW 3 Series", rating: 5, text: "Needed ECU programming after a repair — they got it done right the first time. No dealership markup, way more personal service. Highly recommend." },
   { name: "Rachel P.", vehicle: "2022 Kia Sorento", rating: 5, text: "Great experience from start to finish. Called in the morning, got an appointment the next day, and they kept me updated the whole time. Clean shop, honest team." },
-  { name: "Mike H.", vehicle: "2017 Ram 2500 Diesel", rating: 5, text: "Took my Ram 2500 in for a DPF issue. They diagnosed it quickly and gave me a fair written estimate before touching anything. Will be my go-to shop going forward." },
 ];
 
 function TestimonialCard({ t }: { t: typeof testimonials[0] }) {

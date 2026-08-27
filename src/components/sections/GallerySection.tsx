@@ -19,15 +19,15 @@ const photos: Photo[] = [
     src: "/gallery/IMG_1277.jpg",
     alt: "SmartCare technician working under the hood of a Mercedes in the shop",
     caption: "Hands-on diagnostics",
-    tag: "Engine",
-    span: "col-span-2 row-span-2",
+    tag: "Diagnostics",
+    span: "col-span-1 row-span-1 sm:col-span-2 sm:row-span-2",
   },
   {
     src: "/gallery/IMG_1269.jpg",
     alt: "Borescope screen showing engine internals during inspection",
     caption: "Borescope inspection",
     tag: "Diagnostics",
-    span: "col-span-1 row-span-2",
+    span: "col-span-1 row-span-1 sm:col-span-1 sm:row-span-2",
   },
   {
     src: "/gallery/IMG_1264.jpg",
@@ -38,9 +38,9 @@ const photos: Photo[] = [
   },
   {
     src: "/gallery/IMG_1292.jpg",
-    alt: "Mechanic working on a white GMC truck outside the shop",
-    caption: "Pre-trip inspection",
-    tag: "Diesel",
+    alt: "Mechanic working on a white truck outside the shop",
+    caption: "Multi-point inspection",
+    tag: "Inspection",
     span: "col-span-1 row-span-1",
   },
   {
@@ -48,21 +48,21 @@ const photos: Photo[] = [
     alt: "Mercedes-Benz C280 inside the SmartCare shop bay between two lifts",
     caption: "Mercedes & Euro service",
     tag: "Luxury",
-    span: "col-span-2 row-span-1",
+    span: "col-span-1 row-span-1 sm:col-span-2 sm:row-span-1",
   },
   {
     src: "/gallery/IMG_1293_1_.jpg",
     alt: "Technician between two white Tesla Model 3 vehicles on lifts in the EV bay",
     caption: "Tesla & EV service bay",
-    tag: "BEV",
-    span: "col-span-1 row-span-2",
+    tag: "EV",
+    span: "col-span-1 row-span-1 sm:col-span-1 sm:row-span-2",
   },
   {
     src: "/gallery/IMG_1265.jpg",
     alt: "SmartCare technician inspecting undercarriage of a lifted vehicle",
     caption: "Undercarriage work",
     tag: "Service",
-    span: "col-span-1 row-span-2",
+    span: "col-span-1 row-span-1 sm:col-span-1 sm:row-span-2",
   },
 ];
 
@@ -127,8 +127,8 @@ export default function GallerySection() {
           </p>
         </motion.div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[150px] sm:auto-rows-[180px] md:auto-rows-[220px] lg:auto-rows-[240px]">
+        {/* Bento grid — single column on mobile (full-width photos), bento on sm+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[240px] sm:auto-rows-[180px] md:auto-rows-[220px] lg:auto-rows-[240px]">
           {photos.map((photo, i) => (
             <motion.button
               type="button"
@@ -184,7 +184,7 @@ export default function GallerySection() {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: photos.length * 0.06, ...spring }}
-            className="col-span-2 row-span-1 relative rounded-2xl overflow-hidden border border-accent-500/20 bg-gradient-to-br from-accent-500/[0.12] via-accent-500/[0.04] to-transparent"
+            className="col-span-1 row-span-1 sm:col-span-2 relative rounded-2xl overflow-hidden border border-accent-500/20 bg-gradient-to-br from-accent-500/[0.12] via-accent-500/[0.04] to-transparent"
           >
             <div
               className="absolute -top-12 -right-12 w-48 h-48 rounded-full pointer-events-none"

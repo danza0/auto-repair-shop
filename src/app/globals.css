@@ -85,6 +85,25 @@ body {
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 
+/* On mobile, testimonial rows become manually-swipable carousels: the auto
+   animation is disabled, the duplicated track is hidden, and the outer
+   container scrolls horizontally with snap points. */
+@media (max-width: 767px) {
+  .marquee-scroll {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-inline: 1rem;
+  }
+  .marquee-scroll::-webkit-scrollbar { display: none; }
+  .marquee-scroll .marquee-track {
+    animation: none !important;
+    padding-inline: 1rem;
+  }
+  .marquee-scroll .marquee-dup { display: none; }
+  .marquee-scroll .marquee-track > * > * { scroll-snap-align: center; }
+}
+
 /* Section divider */
 .line-accent {
   height: 1px;

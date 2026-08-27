@@ -175,42 +175,42 @@ export default function TrustSection() {
         </motion.div>
       </div>
 
-      {/* Part B — Testimonials marquee */}
+      {/* Part B — Testimonials marquee (auto-scrolls on ≥md, swipable on mobile) */}
       <div className="relative z-10">
         {/* Marquee row 1 */}
-        <div className="relative mb-5">
-          <div className="marquee-track animate-marquee">
+        <div className="relative mb-5 marquee-scroll">
+          <div className="marquee-track md:animate-marquee">
             <div className="flex gap-5 pr-5">
               {row1.map((t, i) => (
                 <TestimonialCard key={`r1-${i}`} t={t} />
               ))}
             </div>
-            <div className="flex gap-5 pr-5">
+            <div className="flex gap-5 pr-5 marquee-dup">
               {row1.map((t, i) => (
                 <TestimonialCard key={`r1d-${i}`} t={t} />
               ))}
             </div>
           </div>
-          <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to right, black, transparent)", WebkitMaskImage: "linear-gradient(to right, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
-          <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to left, black, transparent)", WebkitMaskImage: "linear-gradient(to left, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
+          <div className="hidden md:block absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to right, black, transparent)", WebkitMaskImage: "linear-gradient(to right, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
+          <div className="hidden md:block absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to left, black, transparent)", WebkitMaskImage: "linear-gradient(to left, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
         </div>
 
         {/* Marquee row 2 */}
-        <div className="relative">
-          <div className="marquee-track animate-marquee-rev">
+        <div className="relative marquee-scroll">
+          <div className="marquee-track md:animate-marquee-rev">
             <div className="flex gap-5 pr-5">
               {row2.map((t, i) => (
                 <TestimonialCard key={`r2-${i}`} t={t} />
               ))}
             </div>
-            <div className="flex gap-5 pr-5">
+            <div className="flex gap-5 pr-5 marquee-dup">
               {row2.map((t, i) => (
                 <TestimonialCard key={`r2d-${i}`} t={t} />
               ))}
             </div>
           </div>
-          <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to right, black, transparent)", WebkitMaskImage: "linear-gradient(to right, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
-          <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to left, black, transparent)", WebkitMaskImage: "linear-gradient(to left, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
+          <div className="hidden md:block absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to right, black, transparent)", WebkitMaskImage: "linear-gradient(to right, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
+          <div className="hidden md:block absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ maskImage: "linear-gradient(to left, black, transparent)", WebkitMaskImage: "linear-gradient(to left, black, transparent)", background: "var(--black-deep, #0A0A0F)" }} />
         </div>
 
         {/* Write a Review CTA */}

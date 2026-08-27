@@ -14,7 +14,7 @@ export interface BookingConfig {
  * the per-service form. The URL must point at the service's event type.
  *
  * To add a new service:
- *  1. Create an event type in Calendly (e.g. /smartcare/diesels)
+ *  1. Create an event type in Calendly (e.g. /smartcare/ev-diagnostics)
  *  2. Add this URL below
  *  3. Customize its intake questions in Calendly's dashboard
  */
@@ -35,7 +35,7 @@ export const bookingConfig: BookingConfig[] = [
   },
   {
     serviceSlug: "bev-hybrids",
-    serviceName: "BEV / Hybrids",
+    serviceName: "EV & Hybrid",
     calendlyUrl: "https://calendly.com/dushukdanyil/30min",
     durationMinutes: 90,
     availabilityNote: "EV-certified bay. Service available Mon–Fri.",
@@ -48,55 +48,47 @@ export const bookingConfig: BookingConfig[] = [
     availabilityNote: "Wiring, sensors, modules. Same-week slots most weeks.",
   },
   {
-    serviceSlug: "diesels",
-    serviceName: "Diesel Service",
+    serviceSlug: "charging-battery",
+    serviceName: "Charging & Battery",
     calendlyUrl: "https://calendly.com/dushukdanyil/30min",
-    durationMinutes: 120,
-    availabilityNote: "Diesel work typically takes 2–4 hours.",
+    durationMinutes: 90,
+    availabilityNote: "HV battery, 12V, and charge-port diagnostics. Mon–Fri.",
   },
   {
     serviceSlug: "maintenance",
     serviceName: "Maintenance",
     calendlyUrl: "https://calendly.com/dushukdanyil/oil-change",
     durationMinutes: 60,
-    availabilityNote: "Oil changes and scheduled maintenance — most times available.",
+    availabilityNote: "Scheduled maintenance for EVs, hybrids, and daily drivers.",
   },
   {
     serviceSlug: "brake-service",
-    serviceName: "Brake Service",
+    serviceName: "Brakes & Regenerative Systems",
     calendlyUrl: "https://calendly.com/dushukdanyil/30min",
     durationMinutes: 90,
     availabilityNote: "Same-day brake service available most days.",
   },
   {
-    serviceSlug: "battery-replacement",
-    serviceName: "Battery Replacement",
+    serviceSlug: "12v-battery",
+    serviceName: "12V Battery Service",
     calendlyUrl: "https://calendly.com/dushukdanyil/30min",
     durationMinutes: 45,
     availabilityNote: "Quick service — usually under an hour.",
   },
   {
-    serviceSlug: "engine-repair",
-    serviceName: "Engine Repair",
-    calendlyUrl: "https://calendly.com/dushukdanyil/30min",
-    durationMinutes: 60,
-    consultationFirst: true,
-    availabilityNote: "Engine work starts with a 60-min consultation. 1 slot per day.",
-  },
-  {
     serviceSlug: "ac-heating",
-    serviceName: "AC / Heating",
+    serviceName: "Climate & Heat Pump",
     calendlyUrl: "https://calendly.com/dushukdanyil/30min",
     durationMinutes: 90,
-    availabilityNote: "AC and heating service Mon–Fri.",
+    availabilityNote: "AC, heat pump, and cabin heater service Mon–Fri.",
   },
   {
-    serviceSlug: "transmission",
-    serviceName: "Transmission",
+    serviceSlug: "drivetrain",
+    serviceName: "Drivetrain",
     calendlyUrl: "https://calendly.com/dushukdanyil/30min",
     durationMinutes: 60,
     consultationFirst: true,
-    availabilityNote: "Transmission work starts with an inspection. 1 slot per day.",
+    availabilityNote: "Drivetrain work starts with an inspection. 1 slot per day.",
   },
   {
     serviceSlug: "other",

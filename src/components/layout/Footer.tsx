@@ -27,7 +27,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm leading-relaxed text-slate-500 max-w-xs">
-              Expert diagnostics, programming, BEV/hybrid service, electronics, diesel repair, and maintenance in Spanaway, WA.
+              EV & hybrid specialists in Spanaway, WA — diagnostics, programming, electronics, HV battery service, and maintenance.
             </p>
           </div>
 

@@ -1,17 +1,17 @@
 import { services } from "@/config/services";
 import { Badge } from "@/components/ui/Badge";
 import Link from "next/link";
-import { ArrowRight, CheckCircle, Cpu, Code, BatteryCharging, Monitor, Truck, Wrench, CircleDot, Settings, Car, Thermometer, GitBranch } from "lucide-react";
+import { ArrowRight, CheckCircle, Cpu, Code, BatteryCharging, Monitor, Wrench, CircleDot, Thermometer, GitBranch, Zap } from "lucide-react";
 
 export const metadata = {
   title: "Services — SmartCare Auto Repair | Spanaway, WA",
-  description: "Full range of automotive repair and maintenance services — diagnostics, programming, BEV/hybrids, electronics, diesels, and more.",
+  description: "EV & hybrid–focused auto service — diagnostics, programming, HV battery, electronics, charging systems, and maintenance.",
 };
 
 const iconMap: Record<string, React.ElementType> = {
   cpu: Cpu, code: Code, "battery-charging": BatteryCharging, monitor: Monitor,
-  truck: Truck, wrench: Wrench, "circle-dot": CircleDot, settings: Settings,
-  car: Car, thermometer: Thermometer, "git-branch": GitBranch,
+  wrench: Wrench, "circle-dot": CircleDot,
+  thermometer: Thermometer, "git-branch": GitBranch, zap: Zap,
 };
 
 export default function ServicesPage() {
@@ -25,10 +25,10 @@ export default function ServicesPage() {
           <div className="text-center mb-16">
             <Badge variant="accent" className="mb-4">Our Services</Badge>
             <h1 className="text-4xl lg:text-5xl font-black text-white mb-4 font-display">
-              Complete Auto Repair &amp; Service
+              EV &amp; Hybrid Specialists
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              From diagnostics to diesel repair — expert service for every make, model, and system.
+              Diagnostics, programming, HV battery service, electronics, and maintenance — built around modern electric and hybrid vehicles.
             </p>
           </div>
 
