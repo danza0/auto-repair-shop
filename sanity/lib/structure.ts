@@ -9,6 +9,7 @@ import {
   RocketIcon,
   ImageIcon,
   HeartIcon,
+  DocumentIcon,
 } from "@sanity/icons";
 
 /**
@@ -94,5 +95,13 @@ export const structure: StructureResolver = (S) =>
           S.documentTypeList("processStep")
             .title("Process Steps")
             .defaultOrdering([{ field: "order", direction: "asc" }]),
+        ),
+      S.divider(),
+      S.listItem()
+        .title("Legal Pages")
+        .icon(DocumentIcon)
+        .child(
+          S.documentTypeList("legalPage")
+            .title("Legal Pages (Privacy, Terms)"),
         ),
     ]);

@@ -9,6 +9,7 @@ import { stat } from "./stat";
 import { processStep } from "./processStep";
 import { galleryPhoto } from "./galleryPhoto";
 import { trustReason } from "./trustReason";
+import { legalPage } from "./legalPage";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   // Singletons
@@ -22,4 +23,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   processStep,
   galleryPhoto,
   trustReason,
+  legalPage,
 ];

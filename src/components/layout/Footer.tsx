@@ -91,9 +91,17 @@ export default function Footer({ siteSettings }: FooterProps = {}) {
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-white/5 mt-14 pt-8 text-center text-sm text-slate-700">
+        {/* Copyright + legal */}
+        <div className="border-t border-white/5 mt-14 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-700">
           <p>&copy; {new Date().getFullYear()} {businessName}. All rights reserved.</p>
+          <div className="flex items-center gap-5">
+            <Link href="/privacy" className="hover:text-slate-400 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-slate-400 transition-colors">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

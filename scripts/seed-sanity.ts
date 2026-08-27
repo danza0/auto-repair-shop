@@ -212,7 +212,16 @@ const TESTIMONIALS = [
   { name: "Google Reviewer 3", source: "Google", rating: 5, text: "The best auto shop in town. Amazing, fantastic, and professional customer care and repair service." },
 ];
 
-const STATS = [
+interface StatSeed {
+  label: string;
+  value: number;
+  suffix: string;
+  showStar?: boolean;
+  showInHero: boolean;
+  showInTrustSection: boolean;
+  order: number;
+}
+const STATS: StatSeed[] = [
   { label: "Vehicles Serviced", value: 2000, suffix: "+", showInHero: true, showInTrustSection: true, order: 1 },
   { label: "Google Rating", value: 5, suffix: ".0", showStar: true, showInHero: true, showInTrustSection: true, order: 2 },
   { label: "Languages Spoken", value: 3, suffix: "", showInHero: true, showInTrustSection: false, order: 3 },
@@ -235,6 +244,157 @@ const TRUST_REASONS = [
   { title: "Efficient Turnaround", description: "Most services completed promptly with updates.", icon: "clock", order: 5 },
   { title: "Honest Pricing", description: "Clear repair plans. Fair rates. No hidden fees.", icon: "dollarSign", order: 6 },
 ];
+
+// ─── Legal pages (converted to Portable Text at seed time) ───────────────
+// Each section is either { heading, paragraphs, bullets } — order preserved.
+type LegalSection = { heading?: string; paragraphs?: string[]; bullets?: string[] };
+
+const PRIVACY_SECTIONS: LegalSection[] = [
+  { paragraphs: [
+    'SmartCare Auto Repair ("we", "us", "our") operates the website at auto-repair-shop-eta.vercel.app (the "Site"). This policy explains what personal information we collect, how we use it, and the choices you have.',
+    "By using the Site or scheduling an appointment with us, you agree to this policy.",
+  ] },
+  { heading: "Information we collect",
+    paragraphs: ["When you contact us or book an appointment, we collect the information you choose to share with us, which typically includes:"],
+    bullets: [
+      "Your name",
+      "Your phone number",
+      "Your email address",
+      "Your vehicle details (year, make, model, mileage, VIN)",
+      "A description of the service you need or the symptoms you're experiencing",
+      "Preferred appointment time",
+    ] },
+  { paragraphs: [
+    "We do not collect payment information through the Site. Payments are handled in person at our shop.",
+    "We may also collect basic technical information automatically — such as your device type, browser, and pages visited — through our hosting provider's server logs. We do not use advertising cookies or third-party marketing trackers.",
+  ] },
+  { heading: "How we use your information",
+    paragraphs: ["We use the information you provide to:"],
+    bullets: [
+      "Confirm your appointment and communicate with you about the service",
+      "Diagnose your vehicle and prepare accurate repair estimates",
+      "Keep records of past services performed on your vehicle",
+      "Send occasional reminders about maintenance or follow-up service",
+      "Comply with tax, warranty, and legal recordkeeping requirements",
+    ] },
+  { heading: "Third-party services we use",
+    paragraphs: ["We rely on a small number of trusted third parties to run the Site and manage appointments. Each has its own privacy policy that governs its handling of your data:"],
+    bullets: [
+      "Calendly — handles the appointment booking form and calendar. Data you enter into the booking form is stored on Calendly's servers.",
+      "Google Maps — provides the map and directions link. Google may collect information about your interaction with the map.",
+      "Vercel — hosts the website and processes basic request logs.",
+    ] },
+  { heading: "How we share your information",
+    paragraphs: [
+      "We do not sell your personal information. We do not share it with advertisers or data brokers.",
+      "We may share limited information with parts suppliers, sublet vendors (for example a tire shop or alignment specialist), or your insurance company — but only as needed to complete the service you asked us to perform.",
+      "We may disclose information if required by law, subpoena, or court order, or to protect the rights, property, or safety of our customers, employees, or others.",
+    ] },
+  { heading: "How long we keep it",
+    paragraphs: ["We keep service records for as long as needed to support your vehicle's warranty and to comply with tax and business recordkeeping rules — typically at least seven (7) years from the date of the last service. Booking-form entries that don't result in a service appointment are deleted within one year."] },
+  { heading: "Your rights",
+    paragraphs: ["You can contact us at any time to:"],
+    bullets: [
+      "Ask what personal information we have about you",
+      "Ask us to correct information that is inaccurate",
+      "Ask us to delete your information (subject to legal recordkeeping requirements)",
+      "Ask us to stop contacting you for non-appointment reasons",
+    ] },
+  { paragraphs: ["California residents have additional rights under the California Consumer Privacy Act (CCPA/CPRA), including the right to know what categories of information we collect, the right to request deletion, and the right not to be discriminated against for exercising these rights. To exercise any of these rights, email us at smartcareautorepair@gmail.com."] },
+  { heading: "Children",
+    paragraphs: ["The Site is intended for adults. We do not knowingly collect information from children under 13. If you believe we have collected such information, please contact us and we will delete it."] },
+  { heading: "Security",
+    paragraphs: ["We take reasonable measures to protect the information you share with us. No system is perfectly secure, but we limit access to your data to team members who need it to service your vehicle."] },
+  { heading: "Changes to this policy",
+    paragraphs: ["We may update this policy from time to time. When we do, we'll update the effective date at the top of this page. If the changes are significant, we'll let you know via the Site or by email."] },
+  { heading: "Contact us",
+    paragraphs: [
+      "Questions about this policy? Get in touch:",
+      "SmartCare Auto Repair",
+      "108 163rd St S, Spanaway, WA 98387",
+      "(253) 214-3774",
+      "smartcareautorepair@gmail.com",
+    ] },
+];
+
+const TERMS_SECTIONS: LegalSection[] = [
+  { paragraphs: ['Welcome to SmartCare Auto Repair (the "Shop"). These Terms of Service ("Terms") govern your use of our website at auto-repair-shop-eta.vercel.app (the "Site") and your interactions with us through it. By using the Site or booking an appointment, you agree to these Terms.'] },
+  { heading: "Using the Site",
+    paragraphs: ["You may use the Site to learn about our services, contact us, and book appointments. You agree not to misuse the Site — for example, by scraping it in bulk, attempting to gain unauthorized access, or submitting false booking requests."] },
+  { heading: "Appointments and estimates",
+    paragraphs: [
+      "The Site lets you request an appointment. A booking is a request, not a confirmation. We confirm your appointment within one business day.",
+      "Any prices, times, or descriptions on the Site are general information — not a firm quote. Repair estimates are only final after we have inspected your vehicle and provided a written estimate. We will not begin non-emergency work without your approval.",
+      "You are responsible for the accuracy of the information you provide about your vehicle. Incorrect information (wrong VIN, wrong make, wrong mileage) may result in delays or additional charges.",
+    ] },
+  { heading: "Payment",
+    paragraphs: ["Payment is due when you pick up your vehicle. We accept the payment methods posted at our shop. If your vehicle is not picked up within a reasonable time after you are notified that work is complete, storage fees may apply, and we reserve any lien rights available to us under Washington law."] },
+  { heading: "Warranty",
+    paragraphs: ["We warrant our workmanship as described in the written repair order or invoice we provide when you pick up your vehicle. Parts warranties are set by the parts manufacturer. If you have a warranty question, contact us and we will do our best to make it right."] },
+  { heading: "Limitation of liability",
+    paragraphs: ["To the fullest extent allowed by law, we are not liable for indirect, incidental, or consequential damages arising from your use of the Site or from services performed on your vehicle, except where required by Washington consumer protection laws. Nothing in these Terms limits any rights that cannot be waived under law."] },
+  { heading: "Third-party links and tools",
+    paragraphs: ["The Site may link to third-party tools (like Calendly for booking or Google Maps for directions). Those services have their own terms and privacy policies. We are not responsible for their content or practices."] },
+  { heading: "Intellectual property",
+    paragraphs: ["The Site's design, logos, copy, and photos are owned by us or our licensors. You may not copy or reuse them without written permission, except for personal, non-commercial use (like screenshotting a service description to share with your family)."] },
+  { heading: "Accessibility",
+    paragraphs: ["We aim to make the Site usable for everyone, including customers with disabilities. If you run into an accessibility problem, please email us at smartcareautorepair@gmail.com and we'll do our best to address it and provide the information you need through another channel."] },
+  { heading: "Governing law",
+    paragraphs: ["These Terms are governed by the laws of the State of Washington, without regard to conflict-of-law rules. Disputes will be resolved in the state or federal courts located in Pierce County, Washington."] },
+  { heading: "Changes to these Terms",
+    paragraphs: ["We may update these Terms from time to time. When we do, we'll update the effective date at the top of the page. Your continued use of the Site after we post changes means you accept the updated Terms."] },
+  { heading: "Contact us",
+    paragraphs: [
+      "Questions about these Terms? Get in touch:",
+      "SmartCare Auto Repair",
+      "108 163rd St S, Spanaway, WA 98387",
+      "(253) 214-3774",
+      "smartcareautorepair@gmail.com",
+    ] },
+];
+
+let ptKeyCounter = 0;
+const ptKey = () => `k${(++ptKeyCounter).toString(36)}`;
+
+function block(style: "normal" | "h2" | "h3", text: string, listItem?: "bullet" | "number") {
+  return {
+    _key: ptKey(),
+    _type: "block",
+    style,
+    ...(listItem ? { listItem, level: 1 } : {}),
+    markDefs: [],
+    children: [{ _key: ptKey(), _type: "span", text, marks: [] }],
+  };
+}
+
+function sectionsToPortableText(sections: LegalSection[]) {
+  const blocks: unknown[] = [];
+  for (const s of sections) {
+    if (s.heading) blocks.push(block("h2", s.heading));
+    for (const p of s.paragraphs ?? []) blocks.push(block("normal", p));
+    for (const b of s.bullets ?? []) blocks.push(block("normal", b, "bullet"));
+  }
+  return blocks;
+}
+
+const LEGAL_PAGES = [
+  {
+    _id: "legalPage-privacy",
+    slug: "privacy",
+    title: "Privacy Policy",
+    summary: "How SmartCare Auto Repair collects, uses, and protects the information you share when you contact us or book an appointment.",
+    body: sectionsToPortableText(PRIVACY_SECTIONS),
+  },
+  {
+    _id: "legalPage-terms",
+    slug: "terms",
+    title: "Terms of Service",
+    summary: "The ground rules for using SmartCare Auto Repair's website and booking service with us.",
+    body: sectionsToPortableText(TERMS_SECTIONS),
+  },
+];
+
+const EFFECTIVE_DATE = new Date().toISOString().slice(0, 10);
 
 const GALLERY_PHOTOS = [
   { file: "IMG_1277.jpg", caption: "Hands-on diagnostics", tag: "Diagnostics", size: "large", alt: "SmartCare technician working under the hood of a Mercedes in the shop" },
@@ -312,6 +472,19 @@ async function main() {
   TRUST_REASONS.forEach((r, i) =>
     tx.createOrReplace({ _id: `trustReason-${i + 1}`, _type: "trustReason", ...r }),
   );
+
+  console.log("• Legal Pages (Privacy Policy, Terms of Service)");
+  for (const p of LEGAL_PAGES) {
+    tx.createOrReplace({
+      _id: p._id,
+      _type: "legalPage",
+      title: p.title,
+      slug: { _type: "slug", current: p.slug },
+      effectiveDate: EFFECTIVE_DATE,
+      summary: p.summary,
+      body: p.body,
+    });
+  }
 
   await tx.commit();
   console.log("  Batch committed.\n");

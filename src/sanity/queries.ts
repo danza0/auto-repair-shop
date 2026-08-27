@@ -100,6 +100,15 @@ export interface TrustReasonDoc {
   order?: number;
 }
 
+/** Portable-Text block (loosely typed — we render with @portabletext/react). */
+export interface LegalPageDoc {
+  title: string;
+  slug: string;
+  effectiveDate?: string;
+  summary?: string;
+  body: unknown[];
+}
+
 // ─── GROQ queries ─────────────────────────────────────────────────────────
 const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
   businessName, shortName, tagline, phone, phoneHref, email, address,
@@ -140,6 +149,10 @@ const GALLERY_QUERY = `*[_type == "galleryPhoto"]|order(order asc){
 
 const TRUST_REASONS_QUERY = `*[_type == "trustReason"]|order(order asc){
   title, description, icon, order
+}`;
+
+const LEGAL_PAGE_QUERY = `*[_type == "legalPage" && slug.current == $slug][0]{
+  title, "slug": slug.current, effectiveDate, summary, body
 }`;
 
 // ─── Fetch helpers ─────────────────────────────────────────────────────────
@@ -211,4 +224,11 @@ export async function getGalleryPhotos(): Promise<GalleryPhotoDoc[]> {
 export async function getTrustReasons(): Promise<TrustReasonDoc[]> {
   const data = await sanityFetch<TrustReasonDoc[]>({ query: TRUST_REASONS_QUERY });
   return data ?? [];
+}
+
+export async function getLegalPage(slug: string): Promise<LegalPageDoc | null> {
+  return sanityFetch<LegalPageDoc>({
+    query: LEGAL_PAGE_QUERY,
+    params: { slug },
+  });
 }

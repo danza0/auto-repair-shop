@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@portabletext/react": "^3.2.4",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@sanity/image-url": "^2.1.1",
