@@ -1,4 +1,5 @@
-import { services } from "@/config/services";
+import { services as defaultServices } from "@/config/services";
+import { getServices } from "@/sanity/queries";
 import { Badge } from "@/components/ui/Badge";
 import Link from "next/link";
 import { ArrowRight, CheckCircle, Cpu, Code, BatteryCharging, Monitor, Wrench, CircleDot, Thermometer, GitBranch, Zap } from "lucide-react";
@@ -14,7 +15,9 @@ const iconMap: Record<string, React.ElementType> = {
   thermometer: Thermometer, "git-branch": GitBranch, zap: Zap,
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const fromSanity = await getServices();
+  const services = fromSanity && fromSanity.length > 0 ? fromSanity : defaultServices;
   const featured = services.filter((s) => s.featured);
   const additional = services.filter((s) => !s.featured);
 
@@ -49,7 +52,7 @@ export default function ServicesPage() {
                   <h2 className="text-xl font-bold text-white mb-2">{service.title}</h2>
                   <p className="text-slate-400 text-sm mb-4 flex-1">{service.description}</p>
                   <ul className="space-y-1.5 mb-5">
-                    {service.details.map((d) => (
+                    {(service.details ?? []).map((d) => (
                       <li key={d} className="flex items-center gap-2 text-sm text-slate-300">
                         <CheckCircle className="w-4 h-4 text-accent-500 flex-shrink-0" />
                         {d}
