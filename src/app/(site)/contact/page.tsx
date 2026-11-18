@@ -1,21 +1,41 @@
 import { Badge } from "@/components/ui/Badge";
 import { MapPin, Phone, Clock, Mail, Globe } from "lucide-react";
 import Link from "next/link";
+import { getSiteSettings } from "@/sanity/queries";
 
 export const metadata = {
   title: "Contact — SmartCare Auto Repair | Spanaway, WA",
-  description: "Get in touch with SmartCare Auto Repair in Spanaway, WA. Call (253) 214-3774.",
+  description:
+    "Get in touch with SmartCare Auto Repair in Spanaway, WA. Call (253) 214-3774.",
 };
 
-const contactDetails = [
-  { icon: Phone, label: "Phone", value: "(253) 214-3774", href: "tel:+12532143774" },
-  { icon: Mail, label: "Email", value: "smartcareautorepair@gmail.com", href: "mailto:smartcareautorepair@gmail.com" },
-  { icon: MapPin, label: "Address", value: "108 163rd St S, Spanaway, WA 98387", href: "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387" },
-  { icon: Clock, label: "Hours", value: "Monday – Friday, 9 AM – 5 PM", href: null },
-  { icon: Globe, label: "Languages", value: "English · Spanish · Russian", href: null },
-];
+export default async function ContactPage() {
+  const s = await getSiteSettings();
 
-export default function ContactPage() {
+  const phone = s?.phone || "(253) 214-3774";
+  const phoneHref = `tel:${s?.phoneHref || "+12532143774"}`;
+  const email = s?.email || "smartcareautorepair@gmail.com";
+  const address = s?.address || "108 163rd St S";
+  const cityStateZip = s?.cityStateZip || "Spanaway, WA 98387";
+  const mapsUrl =
+    s?.mapsUrl ||
+    "https://maps.google.com/?q=108+163rd+St+S+Spanaway+WA+98387";
+  const hours = s?.hours || "Monday – Friday, 9 AM – 5 PM";
+  const languages = s?.languages || "English · Spanish · Ukrainian · Russian";
+
+  const contactDetails = [
+    { icon: Phone, label: "Phone", value: phone, href: phoneHref },
+    { icon: Mail, label: "Email", value: email, href: `mailto:${email}` },
+    {
+      icon: MapPin,
+      label: "Address",
+      value: `${address}, ${cityStateZip}`,
+      href: mapsUrl,
+    },
+    { icon: Clock, label: "Hours", value: hours, href: null as string | null },
+    { icon: Globe, label: "Languages", value: languages, href: null as string | null },
+  ];
+
   return (
     <div className="pt-20 min-h-screen bg-navy-900">
       <section className="py-16 px-4 sm:px-6 lg:px-8">

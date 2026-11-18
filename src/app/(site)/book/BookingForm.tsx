@@ -16,7 +16,12 @@ import {
   ShieldCheck,
   Clock,
 } from "lucide-react";
-import { bookingConfig, generalBookingUrl, buildCalendlyUrl } from "@/config/booking";
+import { bookingConfig as defaultBookingConfig, generalBookingUrl as defaultGeneralBookingUrl, buildCalendlyUrl, type BookingConfig } from "@/config/booking";
+
+interface BookingFormProps {
+  bookingConfig?: BookingConfig[];
+  generalBookingUrl?: string;
+}
 
 const languages = ["English", "Spanish", "Ukrainian", "Russian"];
 
@@ -80,7 +85,10 @@ const initialState: FormState = {
 
 const spring = { type: "spring" as const, stiffness: 110, damping: 22 };
 
-export default function BookingForm() {
+export default function BookingForm({
+  bookingConfig = defaultBookingConfig,
+  generalBookingUrl = defaultGeneralBookingUrl,
+}: BookingFormProps = {}) {
   const searchParams = useSearchParams();
   const [step, setStep] = useState<StepId>("service");
   const [form, setForm] = useState<FormState>(initialState);
@@ -93,13 +101,13 @@ export default function BookingForm() {
     if (s && bookingConfig.some((b) => b.serviceSlug === s)) {
       setForm((f) => ({ ...f, serviceSlug: s }));
     }
-  }, [searchParams]);
+  }, [searchParams, bookingConfig]);
 
   const currentStepIndex = stepOrder.indexOf(step);
   const progress = ((currentStepIndex + 1) / stepOrder.length) * 100;
   const selectedConfig = useMemo(
     () => bookingConfig.find((b) => b.serviceSlug === form.serviceSlug),
-    [form.serviceSlug]
+    [form.serviceSlug, bookingConfig]
   );
 
   function setField<K extends keyof FormState>(key: K, value: FormState[K]) {
